@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" style="scroll-behavior: smooth;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>最后一面：1.24亿宠物与300万次告别</title><link href="https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script><script src="china_geojson.js"></script><script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script><script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script><style>
+<!DOCTYPE html><html lang="zh-CN" style="scroll-behavior: smooth;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>最后一面：1.24亿宠物与300万次告别</title><script src="js/chart.umd.js"></script><script src="js/echarts.min.js"></script><script src="china_geojson.js"></script><script src="js/gsap.min.js"></script><script src="js/ScrollTrigger.min.js"></script><style>
 :root {
 --ink: #1a1a1a;
 --paper: #f8f6f2;
@@ -18,7 +18,7 @@ html {
 scroll-behavior: smooth;
 }
 body {
-font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+font-family: 'Songti SC', 'SimSun', 'Noto Serif SC', serif;
 background: var(--paper);
 color: var(--ink);
 cursor: url('images/img_a373c01ab065fd1b.svg') 18 18, auto !important;
@@ -62,7 +62,7 @@ transition: all 0.3s ease;
 /* 符号柱状图 */
 .pictogram-chart {
 padding: 0.6rem 0.4rem;
-font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+font-family: 'Songti SC', 'SimSun', 'Noto Serif SC', serif;
 }
 .pictogram-title {
 text-align: center;
@@ -159,7 +159,7 @@ height: 100%;
 overflow: visible;
 }
 .market-tree text {
-font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+font-family: 'Songti SC', 'SimSun', 'Noto Serif SC', serif;
 }
 /* 导航 */
 nav {
@@ -184,7 +184,7 @@ opacity: 1;
 transform: translateY(0);
 }
 .nav-title {
-font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', serif;
 font-size: 1.2rem;
 letter-spacing: 0.1em;
 }
@@ -251,7 +251,7 @@ padding: 2rem;
 max-width: 900px;
 }
 .chapter-number {
-font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', serif;
 font-size: clamp(4rem, 12vw, 8rem);
 line-height: 1;
 opacity: 0.18;
@@ -267,7 +267,7 @@ margin: 0 auto;
 padding: 5rem 2rem;
 }
 h1, h2, h3 {
-font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', serif;
 font-weight: 700;
 line-height: 1.3;
 }
@@ -284,7 +284,7 @@ font-size: 1.5rem;
 margin: 2.5rem 0 1rem;
 }
 h4 {
-font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', serif;
 font-size: 1.15rem;
 font-weight: 700;
 margin: 1.8rem 0 0.8rem;
@@ -373,7 +373,7 @@ to { opacity: 1; transform: translateY(0); }
 }
 .cover-title .main {
 display: block;
-font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', serif;
 font-size: clamp(4rem, 10vw, 7.5rem);
 font-weight: 700;
 line-height: 1.1;
@@ -446,7 +446,7 @@ background: var(--highlight-soft);
 box-shadow: 5px 5px 0 rgba(0,0,0,0.1);
 }
 .data-card .number {
-font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', serif;
 font-size: 2.5rem;
 font-weight: 700;
 display: block;
@@ -611,7 +611,7 @@ display: block;
   font-size: 0.85rem;
   line-height: 1.6;
   color: #1a1a1a;
-  font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+  font-family: 'Songti SC', 'SimSun', 'Noto Serif SC', serif;
   text-align: left;
 }
 .dim-tooltip-arrow {
@@ -680,7 +680,7 @@ flex-wrap: wrap;
 padding: 0.5rem 1rem;
 border: 2px solid var(--ink);
 background: var(--paper);
-font-family: 'Noto Serif SC', serif;
+font-family: 'SimSun', serif;
 font-size: 0.9rem;
 cursor: inherit;
 border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
@@ -737,7 +737,7 @@ opacity: 1;
 visibility: visible;
 }
 .attitude-center-label {
-font-family: 'Ma Shan Zheng', cursive;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', cursive;
 font-size: 1rem;
 color: #c53d43;
 margin-bottom: 0.35rem;
@@ -943,14 +943,14 @@ background: #fffdf7;
 .message-card .msg-text {
 margin-bottom: 1rem;
 line-height: 1.85;
-font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', serif;
 font-size: 1.02rem;
 }
 .message-card .msg-author {
 text-align: right;
 font-size: 0.82rem;
 opacity: 0.75;
-font-family: 'Noto Serif SC', serif;
+font-family: 'SimSun', serif;
 }
 .msg-view-photo {
 position: absolute;
@@ -1363,7 +1363,7 @@ box-shadow: 5px 5px 0 rgba(0,0,0,0.1);
 .flow-step:nth-child(5):hover { transform: translateX(-40px) translateY(-4px) scale(1.02); }
 .flow-step:nth-child(6):hover { transform: translateX(20px) translateY(-4px) scale(1.02); }
 .flow-step .flow-num {
-font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', serif;
 font-size: 1.5rem;
 font-weight: 700;
 color: #c53d43;
@@ -1622,7 +1622,7 @@ cursor: inherit;
 line-height: 1;
 }
 .flow-modal-num {
-font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', serif;
 font-size: 2.4rem;
 color: #c53d43;
 opacity: 0.35;
@@ -1661,7 +1661,7 @@ padding: 0.7rem 1.8rem;
 border: 2.5px solid var(--ink);
 border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
 background: var(--paper);
-font-family: 'Noto Serif SC', serif;
+font-family: 'SimSun', serif;
 font-size: 1rem;
 cursor: inherit;
 transition: all 0.25s ease;
@@ -2018,7 +2018,7 @@ font-size: 0.85rem;
 letter-spacing: 0.22em;
 color: #5a5a5a;
 opacity: 0.85;
-font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', serif;
 font-weight: 600;
 }
 /* 底部石纹 */
@@ -2088,7 +2088,7 @@ color: #8a4a4a;
 font-size: 1.15rem;
 display: block;
 margin-bottom: 0.55rem;
-font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', serif;
 letter-spacing: 0.02em;
 }
 .tombstone-modal .highlight {
@@ -2219,7 +2219,7 @@ border-bottom: 1.5px dashed rgba(0,0,0,0.15);
 font-size: 1.3rem;
 font-weight: 700;
 color: #c53d43;
-font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', serif;
 }
 .book-rate {
 font-size: 0.85rem;
@@ -2258,7 +2258,7 @@ padding: 0.45rem 1.2rem;
 background: var(--paper);
 border: 2px solid var(--ink);
 border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-font-family: 'Noto Serif SC', serif;
+font-family: 'SimSun', serif;
 font-size: 0.9rem;
 cursor: inherit;
 transition: all 0.25s ease;
@@ -2345,7 +2345,7 @@ top: 50%;
 transform: translateY(-50%) rotate(-90deg);
 transform-origin: center center;
 white-space: nowrap;
-font-family: 'Ma Shan Zheng', cursive;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', cursive;
 font-size: 0.9rem;
 color: rgba(197,61,67,0.5);
 letter-spacing: 0.15em;
@@ -2374,7 +2374,7 @@ align-items: flex-start;
 border-bottom: 2px solid var(--ink);
 padding-bottom: 1rem;
 margin-bottom: 1.8rem;
-font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', serif;
 }
 .exam-title-main {
 font-size: 1.35rem;
@@ -2393,7 +2393,7 @@ opacity: 0.85;
 border: 2px solid var(--ink);
 padding: 0.35rem 0.8rem;
 border-radius: 2px;
-font-family: 'Ma Shan Zheng', cursive;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', cursive;
 }
 .exam-info-row {
 display: flex;
@@ -2433,7 +2433,7 @@ transform: translateX(-30px);
 opacity: 0;
 }
 .exam-question-num {
-font-family: 'Ma Shan Zheng', cursive;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', cursive;
 font-size: 1.15rem;
 color: #c53d43;
 margin-bottom: 1rem;
@@ -2446,7 +2446,7 @@ margin-bottom: 1.4rem;
 }
 .exam-title-text {
 display: inline-block;
-font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', serif;
 font-size: 1.45rem;
 font-weight: 700;
 color: var(--ink);
@@ -2490,7 +2490,7 @@ border-radius: 2px;
 .exam-page-number {
 text-align: center;
 margin-top: 1.6rem;
-font-family: 'Ma Shan Zheng', cursive;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', cursive;
 font-size: 1.05rem;
 color: #777;
 }
@@ -2506,7 +2506,7 @@ padding: 0.55rem 1.6rem;
 background: var(--paper);
 border: 2px solid var(--ink);
 border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-font-family: 'Noto Serif SC', serif;
+font-family: 'SimSun', serif;
 font-size: 1rem;
 cursor: inherit;
 transition: all 0.25s ease;
@@ -2730,7 +2730,7 @@ position: relative;
 background: var(--paper);
 }
 .interaction-card h2 {
-font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', serif;
 font-size: 2.2rem;
 margin-bottom: 2rem;
 color: var(--ink);
@@ -2746,7 +2746,7 @@ background: var(--ink);
 color: var(--paper);
 font-size: 1.1rem;
 margin-right: 0.8rem;
-font-family: 'Noto Serif SC', serif;
+font-family: 'SimSun', serif;
 vertical-align: middle;
 }
 .pet-selector {
@@ -2785,7 +2785,7 @@ padding: 0.9rem 1.2rem;
 border: 2.5px solid var(--ink);
 border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
 background: var(--paper);
-font-family: 'Noto Serif SC', serif;
+font-family: 'SimSun', serif;
 font-size: 1.1rem;
 text-align: center;
 max-width: 320px;
@@ -2804,7 +2804,7 @@ border: 2.5px solid var(--ink);
 border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
 background: var(--ink);
 color: var(--paper);
-font-family: 'Noto Serif SC', serif;
+font-family: 'SimSun', serif;
 font-size: 1.05rem;
 cursor: inherit;
 transition: all 0.25s ease;
@@ -2881,7 +2881,7 @@ display: block;
 animation: fadeInStep 0.6s ease forwards;
 }
 .data-reveal .big-number {
-font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+font-family: 'KaiTi', 'STKaiti', 'SimSun', serif;
 font-size: 3rem;
 color: #c53d43;
 display: block;
@@ -3061,7 +3061,7 @@ transition-duration: 0.01ms !important;
   box-shadow: 2px 2px 0 rgba(90,74,58,0.10);
   overflow: hidden;
   position: relative;
-  font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+  font-family: 'Songti SC', 'SimSun', 'Noto Serif SC', serif;
   transform: rotate(-0.4deg);
 }
 .data-hint-box::before {
@@ -3076,7 +3076,7 @@ transition-duration: 0.01ms !important;
   border-radius: 50%;
   background: #c53d43;
   color: #f8f6f2;
-  font-family: 'Noto Serif SC', serif;
+  font-family: 'SimSun', serif;
   font-weight: 700;
   font-size: 0.65rem;
   font-style: italic;
