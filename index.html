@@ -91,6 +91,9 @@ max-width: 90px;
 .pictogram-col:hover {
 opacity: 0.75;
 }
+.pictogram-col.touch-hover {
+opacity: 0.75;
+}
 .pictogram-value {
 font-size: 0.75rem;
 font-weight: bold;
@@ -131,20 +134,28 @@ text-align: center;
 margin-top: 0.5rem;
 }
 @media (max-width: 480px) {
+.pictogram-cols{gap:0.3rem;min-height:auto!important;align-items:flex-end;}
+.pictogram-col{max-width:100%;flex:1;min-width:0;}
 .pictogram-grid {
-grid-template-columns: repeat(var(--cols, 2), 14px);
-gap: 2px;
-min-height: 160px;
+display:flex;
+flex-direction:column-reverse;
+flex-wrap:wrap;
+gap:2px;
+min-height:80px;
+max-height:140px;
+align-content:center;
+justify-content:flex-start;
+overflow:visible;
 }
 .pictogram-icon-g {
-width: 14px;
-height: 14px;
+width:11px;
+height:11px;
 }
 .pictogram-value {
-font-size: 0.65rem;
+font-size:0.58rem;
 }
 .pictogram-label {
-font-size: 0.75rem;
+font-size:0.65rem;
 }
 }
 .market-tree {
@@ -192,6 +203,7 @@ letter-spacing: 0.1em;
 display: flex;
 gap: 1.5rem;
 font-size: 0.9rem;
+position: relative;
 }
 .nav-links a {
 color: var(--ink);
@@ -213,6 +225,22 @@ transform: rotate(-1deg);
 }
 .nav-links a:hover::after {
 width: 100%;
+}
+.nav-links a.active {
+color: #c53d43;
+font-weight: 700;
+}
+.nav-links a.active::after {
+content: '';
+position: absolute;
+bottom: -10px;
+left: 50%;
+transform: translateX(-50%);
+width: 8px;
+height: 8px;
+background: #c53d43;
+border-radius: 255px 4px 225px 6px / 5px 225px 4px 255px;
+opacity: 0.85;
 }
 /* 章节通用 */
 section {
@@ -824,6 +852,9 @@ transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 will-change: transform;
 }
 .story-illustration:hover {
+transform: scale(1.02);
+}
+.story-illustration.touch-hover {
 transform: scale(1.02);
 }
 .story-illustration img {
@@ -1449,10 +1480,14 @@ transform: scale(1.4);
 background: #c53d43;
 box-shadow: 0 0 0 8px rgba(197,61,67,0.12);
 }
+.trap-node.touch-hover {
+transform: scale(1.4);
+background: #c53d43;
+box-shadow: 0 0 0 8px rgba(197,61,67,0.12);
+}
 .trap-node::before {
 content: attr(data-title);
 position: absolute;
-display: none !important;
 left: 50%;
 bottom: 130%;
 transform: translateX(-50%) rotate(-0.5deg);
@@ -1473,7 +1508,6 @@ box-shadow: 2px 2px 0 rgba(0,0,0,0.08);
 .trap-node::after {
 content: attr(data-detail);
 position: absolute;
-display: none !important;
 left: 50%;
 bottom: 230%;
 transform: translateX(-50%) scale(0.92) rotate(-0.5deg);
@@ -1496,6 +1530,11 @@ z-index: 20;
 box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
 }
 .trap-node:hover::after {
+opacity: 1;
+visibility: visible;
+transform: translateX(-50%) scale(1) rotate(-0.5deg);
+}
+.trap-node.touch-hover::after {
 opacity: 1;
 visibility: visible;
 transform: translateX(-50%) scale(1) rotate(-0.5deg);
@@ -3145,14 +3184,17 @@ transition-duration: 0.01ms !important;
 
 /* 产业链悬停 */
 .industry-card{cursor:pointer;}.industry-card:hover .industry-hover-detail{opacity:1!important;visibility:visible!important;}
+.industry-card.touch-hover .industry-hover-detail{opacity:1!important;visibility:visible!important;}
 
 /* 城市乡村悬停tooltip */
 .dim-card:hover .dim-tooltip,.dim-peer:hover .dim-tooltip{z-index:200!important;opacity:1!important;visibility:visible!important;animation:none!important;}
+.dim-card.touch-hover .dim-tooltip,.dim-peer.touch-hover .dim-tooltip{z-index:200!important;opacity:1!important;visibility:visible!important;animation:none!important;}
 
 /* 决策流 */
 .flow-step{padding:1.2rem 1rem 2.8rem;}
 .flow-step .flow-more{position:absolute;bottom:0.6rem;left:50%;transform:translateX(-50%);font-size:0.72rem;color:#c53d43;text-decoration:none;border:1.5px solid #c53d43;border-radius:14px;padding:0.2rem 0.7rem;background:rgba(197,61,67,0.04);pointer-events:none;white-space:nowrap;transition:all .25s ease;}
 .flow-step:hover .flow-more{background:#c53d43;color:#fff;}
+.flow-step.touch-hover .flow-more{background:#c53d43;color:#fff;}
 .flow-modal-gap{font-size:1rem;line-height:1.9;color:var(--ink);text-align:left;}
 
 /* 迷宫弹窗字体 */
@@ -3166,14 +3208,15 @@ transition-duration: 0.01ms !important;
 /* 移动端 */
 @media(max-width:768px){
 html,body{overflow-x:hidden;}
-.chapter-content{padding:2.5rem 1.2rem;}
+.chapter-content{padding:2.5rem 1rem;}
 p{font-size:0.95rem!important;}
 h1{font-size:clamp(2rem,8vw,4rem)!important;}
 h2{font-size:clamp(1.4rem,5vw,2.5rem)!important;}
 h3{font-size:1.15rem!important;margin:1.5rem 0 0.6rem!important;}
-nav{padding:0.6rem 1rem;}
-.nav-title{font-size:0.95rem;}
-.nav-links{gap:0.6rem;font-size:0.7rem;flex-wrap:wrap;justify-content:flex-end;}
+nav{padding:0.5rem 0.8rem;}
+.nav-title{font-size:0.85rem;white-space:nowrap;}
+.nav-links{gap:0.35rem;font-size:0.65rem;flex-wrap:wrap;justify-content:flex-end;max-width:65%;}
+.nav-links a{padding:0.35rem 0.15rem;}
 #cover{background-image:url('images/img_fc29b8cbb039dca5.webp')!important;background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;}
 .cover-title .main{font-size:clamp(2.5rem,10vw,5rem)!important;line-height:1.2;}
 .cover-title .sub{font-size:0.85rem!important;}
@@ -3184,28 +3227,135 @@ nav{padding:0.6rem 1rem;}
 .pet-icon-img{width:34px;height:34px;}
 .choice-btn{min-width:80px;padding:0.7rem 0.8rem;font-size:0.85rem;}
 .data-grid{grid-template-columns:repeat(2,1fr);gap:0.8rem;}
-.two-col{grid-template-columns:1fr!important;display:block!important;}
+.two-col{grid-template-columns:1fr!important;display:block!important;gap:0!important;}
+.two-col>*{margin-bottom:1.5rem;}
 .four-dim{flex-direction:column;align-items:center;gap:1rem;}
-.dim-card{width:100%;max-width:300px;height:240px;}
+.dim-card{width:100%;max-width:300px;height:260px;}
 .dim-mid{width:100%;max-width:260px;flex-direction:row;gap:0.8rem;}
 .story-with-illustration{flex-direction:column!important;}
-.story-illustration{width:100%!important;max-height:250px;overflow:hidden;}
-.chart-container{height:320px;padding:0.6rem;position:relative;overflow:hidden;}
+.story-illustration{width:100%!important;max-height:none;overflow:visible;margin-bottom:0.8rem;}
+.story-illustration img{width:100%!important;height:auto!important;max-height:300px;object-fit:contain;display:block;}
+.chart-container{height:300px;padding:0.5rem;position:relative;overflow:hidden;}
 .chart-container canvas{max-width:100%!important;height:100%!important;}
-.chart-container.small{height:280px;}
-.chart-container.map{height:400px;}
+.chart-container.small{height:260px;}
+.chart-container.map{height:380px;}
+.chart-wrapper{padding:0 0.5rem;}
+.chart-detail{font-size:0.85rem!important;padding:0.4rem 0.6rem!important;}
 .speech-bubble-pair{grid-template-columns:1fr!important;gap:1.2rem!important;}
-.industry-chain{flex-direction:column!important;align-items:center;min-height:auto;gap:1rem;}
-.industry-chain>div{width:100%!important;max-width:320px;}
-.industry-chain>div:nth-child(2){display:none;}
-.decision-flow{flex-direction:column;align-items:center;gap:1rem;}
+.industry-chain{flex-direction:column!important;align-items:stretch!important;min-height:auto!important;gap:0!important;margin:1.5rem 0!important;display:flex!important;}
+.industry-chain>div{width:100%!important;max-width:100%!important;padding-right:0!important;flex-direction:column!important;display:flex!important;}
+.industry-chain .chain-node{width:100%!important;max-width:100%!important;margin:0 0 0.5rem 0!important;transform:none!important;border-radius:6px;position:relative!important;padding:1rem 1.2rem!important;}
+.industry-chain .chain-node:hover{transform:translateY(-2px)!important;}
+.industry-chain .chain-node>div[style*=\"right\"]{display:none!important;}
+.decision-flow{flex-direction:column;align-items:stretch;gap:0;position:relative;padding-left:1.8rem;min-height:auto;}
+.decision-flow::before{content:'';position:absolute;left:0.7rem;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,#c53d43,#5a4a3a 50%,#c53d43);border-radius:1px;opacity:0.35;}
 .decision-flow .chain-svg{display:none;}
-.flow-step{width:90%;max-width:320px;position:relative!important;left:auto!important;right:auto!important;top:auto!important;transform:none!important;}
-.notice-board-grid{grid-template-columns:1fr;max-width:100%;}
-.farewell-product{width:calc(50% - 0.4rem);}
+.pictogram-grid{max-height:180px!important;min-height:120px;}
+.pictogram-icon-g{width:14px;height:14px;}
+.pictogram-value{font-size:0.68rem;}
+.pictogram-label{font-size:0.78rem;}
+.pictogram-cols{min-height:auto!important;gap:0.5rem;}
+.flow-step{width:100%;max-width:100%;position:relative!important;left:auto!important;right:auto!important;top:auto!important;transform:none!important;margin-bottom:0.6rem;padding:1rem 1rem 2.2rem;border-left:3px solid #c53d43;border-radius:0 8px 8px 0;background:rgba(197,61,67,0.03);}
+.flow-step::before{content:attr(data-step);position:absolute;left:-1.8rem;top:1rem;width:1.4rem;height:1.4rem;background:#c53d43;color:#fff;border-radius:50%;font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;z-index:2;}
+.notice-board-grid{grid-template-columns:1fr;max-width:100%;gap:1.2rem;}
+.notice-board{padding:1.2rem 1rem;}
+.farewell-products{flex-wrap:wrap;gap:0.6rem;justify-content:center;}
+.farewell-product{width:calc(50% - 0.4rem);min-width:140px;}
 .message-wall{grid-template-columns:1fr!important;}
+.message-card{padding:1rem 1.2rem;}
+.timeline-interactive{padding:0.5rem 0;}
+.tl-item{gap:1rem;padding:0.6rem 0;}
+.tl-dot{width:12px;height:12px;min-width:12px;margin-left:11px;}
+.tl-year{font-size:1rem;min-width:40px;}
+.tl-card-title{font-size:0.95rem;}
+.tl-card-brief{font-size:0.95rem;}
+.tl-card-detail p{font-size:0.95rem;}
+.price-tags-rack{flex-direction:column!important;align-items:center;gap:1.5rem;padding:1rem 0;min-height:auto;}
+.price-tag-wrap{position:relative!important;top:0!important;left:0!important;right:0!important;width:90%;max-width:320px;margin:0 auto;}
+.price-tag-wrap:nth-child(2),.price-tag-wrap:nth-child(3),.price-tag-wrap:nth-child(4){top:0!important;}
+.price-tag-body{font-size:0.85rem!important;}
+.price-tag-name{font-size:1rem!important;}
+.price-tag-price{font-size:1rem!important;}
+.price-tag-desc{font-size:0.75rem!important;}
+.shop-model{padding:0.5rem;min-height:340px;}
+.shop-model .shop-popup{max-width:90vw!important;left:5vw!important;right:5vw!important;font-size:0.88rem!important;}
+.shop-tab{padding:0.4rem 0.8rem;font-size:0.8rem;}
+.country-book{max-width:100%;}
+.book-page{padding:1rem;font-size:0.9rem;}
+.book-page h4{font-size:1rem;}
+.book-page p{font-size:0.88rem!important;}
+.book-controls{gap:0.5rem;}
+.book-btn{min-width:40px;min-height:40px;font-size:0.8rem;padding:0.3rem 0.6rem;}
+.exam-paper{min-height:auto;padding:1rem;}
+.exam-page{padding:0.8rem;min-height:auto;font-size:0.85rem;}
+.exam-title-text{font-size:0.9rem;}
+.exam-content{font-size:0.85rem;}
+.exam-content p{font-size:0.85rem!important;}
+.exam-prev,.exam-next{padding:0.35rem 0.7rem;font-size:0.8rem;}
+.trap-maze{position:relative;min-height:auto;padding:0.5rem 0;}
+.trap-maze-bg{display:none;}
+.trap-nodes{position:static!important;display:flex;flex-direction:column;gap:0.7rem;padding:0.5rem 0;}
+.trap-node{position:static!important;width:auto!important;height:auto!important;display:flex;align-items:center;gap:0.6rem;padding:0.6rem 0.9rem;border:2px solid rgba(197,61,67,0.2);border-radius:8px;font-size:0.85rem;color:var(--ink);background:rgba(197,61,67,0.02);}
+.trap-node::before{display:block!important;position:static!important;content:''!important;width:12px;height:12px;min-width:12px;background:#c53d43;border:none!important;border-radius:50%;opacity:1!important;visibility:visible!important;transform:none!important;padding:0!important;box-shadow:0 0 0 4px rgba(197,61,67,0.12);}
+.trap-node::after{display:block!important;position:static!important;content:attr(data-title)!important;width:auto!important;max-width:none!important;opacity:1!important;visibility:visible!important;transform:none!important;border:none!important;padding:0!important;background:none!important;font-size:0.85rem!important;font-weight:600;color:var(--ink);text-align:left;box-shadow:none!important;white-space:normal!important;line-height:1.4;}
+.trap-node.touch-hover{transform:translateX(4px)!important;border-color:#c53d43;background:rgba(197,61,67,0.08);}
+.trap-node:active{transform:scale(0.98)!important;background:rgba(197,61,67,0.15);}
+.trap-modal-content{max-width:90vw!important;padding:1rem!important;}
+.trap-modal-title{font-size:1rem!important;}
+.trap-modal-desc{font-size:0.9rem!important;}
+#marketTree{min-height:240px;}
+.market-tree{min-height:240px;}
+#chinaMapContainer{height:400px!important;}
+.click-guide{font-size:0.7rem!important;}
+.click-guide .finger svg{width:12px!important;height:16px!important;}
+.finger svg{width:12px!important;height:16px!important;}
+#call-to-action{padding:1rem 0!important;}
+#call-to-action h2{font-size:1.4rem!important;}
+#call-to-action p{font-size:0.95rem!important;}
+#epilogue{padding:0.5rem 0 1rem!important;margin-top:-1.5rem!important;}
+#epilogue h2{font-size:1.5rem!important;}
+#epilogue .lead{font-size:0.95rem!important;line-height:2!important;margin-bottom:2rem!important;}
+#ai-disclosure,.chapter-content{padding:1rem 0.8rem!important;}
+footer{font-size:0.9rem;padding:1.5rem 1rem;}
+footer h4{font-size:0.95rem;}
+footer p,footer li{font-size:0.85rem!important;line-height:1.7!important;}
+footer .credits{font-size:1.1rem!important;line-height:1.8!important;}
+.sources ul{padding-left:1.2rem;}
+.sources li{margin-bottom:0.4rem;}
+.lead{font-size:1rem!important;line-height:2!important;}
+.quote{font-size:0.95rem!important;padding:1rem 1.2rem!important;}
+.quote-author{font-size:0.85rem!important;}
+.chart-btn{padding:0.35rem 0.7rem;font-size:0.75rem;}
+.data-hint-box{max-width:100%!important;margin:0 0 0.5rem!important;}
+.data-hint-header{font-size:0.8rem;}
+.data-hint-body{font-size:0.8rem!important;}
+.scroll-hint{font-size:0.85rem;}
+.candle-game{margin-top:2rem!important;}
+.candle-game p{font-size:0.9rem!important;}
+#candle svg{width:90px;height:135px;}
+.story-card-content h3{font-size:1.15rem!important;}
+.story-card-content p{font-size:0.92rem!important;}
+.comparison-bar{font-size:0.85rem;}
+.big-number{font-size:2.5rem!important;}
+.data-reveal p{font-size:0.95rem!important;}
+.enter-story p{font-size:0.95rem!important;}
+.enter-story a{font-size:0.95rem!important;}
 }
-@media(max-width:480px){.chart-container{height:280px;}.chart-container.map{height:340px;}.farewell-product{width:100%;flex-direction:row;}}
+@media(max-width:480px){
+.chart-container{height:260px;}
+.chart-container.map{height:340px;}
+.chart-container.small{height:240px;}
+.farewell-product{width:100%;flex-direction:row;}
+#chinaMapContainer{height:340px!important;}
+.cover-title .main{font-size:clamp(2rem,9vw,3.5rem)!important;}
+.chapter-content{padding:2rem 0.8rem;}
+h2{font-size:clamp(1.2rem,4.5vw,1.8rem)!important;}
+.price-tag-wrap{width:95%;}
+.trap-nodes{gap:0.5rem;}
+.trap-node{padding:0.4rem 0.6rem;font-size:0.7rem;}
+.nav-links{font-size:0.6rem;gap:0.25rem;max-width:70%;}
+.nav-title{font-size:0.78rem;}
+}
 @media(hover:none) and (pointer:coarse){
 .data-card:hover,.dim-card:hover,.dim-peer:hover,.notice-board:hover,.pet-option:hover,.choice-btn:hover{transform:none!important;box-shadow:none!important;}
 .nav-links a{padding:0.5rem 0.4rem;}
@@ -3213,13 +3363,13 @@ nav{padding:0.6rem 1rem;}
 }
 </style>
 
-</head><body style=""><nav id="navbar" class=""><div class="nav-title">最后一面</div><div class="nav-links"><a href="#interaction">互动</a><a href="#intro">引入</a><a href="#chapter1">第一章</a><a href="#chapter2">第二章</a><a href="#chapter3">第三章</a><a href="#chapter4">第四章</a><a href="#chapter5">第五章</a></div></nav><section id="cover"><div class="cover-content"><div class="cover-title"><span class="main" >最后一面</span><span class="sub" >1.24 亿宠物 · 300 万次告别</span></div></div><div class="scroll-hint" onclick="document.getElementById(&#39;intro&#39;).scrollIntoView({behavior:&#39;smooth&#39;})">向下滚动 ↓</div></section><section id="interaction" class="interaction-intro"><div class="interaction-card sketch-box"><div class="interaction-step active" id="step1"><h2><span class="step-num">1</span>请选择你的宠物，并给它起个名字</h2><div class="pet-selector"><div class="pet-option" data-pet="dog" data-icon="" data-lifespan="12"><img loading="lazy" src="images/img_9a911d8a80ae7ade.png" alt="狗" class="pet-icon-img"><span>狗</span></div><div class="pet-option" data-pet="cat" data-icon="" data-lifespan="14"><img loading="lazy" src="images/img_636ba2b85b418814.png" alt="猫" class="pet-icon-img"><span>猫</span></div><div class="pet-option" data-pet="rabbit" data-icon="" data-lifespan="8"><img loading="lazy" src="images/img_d4fbe4f5a8e70b8e.png" alt="兔子" class="pet-icon-img"><span>兔子</span></div><div class="pet-option" data-pet="hamster" data-icon="" data-lifespan="2"><img loading="lazy" src="images/img_ec141fd92639c0fc.png" alt="仓鼠" class="pet-icon-img"><span>仓鼠</span></div><div class="pet-option" data-pet="bird" data-icon="" data-lifespan="5"><img loading="lazy" src="images/img_cb59b0eb6033ebc8.png" alt="鸟" class="pet-icon-img"><span>鸟</span></div></div><div class="pet-name-input"><label for="petName">它叫什么名字？</label><input type="text" id="petName" placeholder="比如：豆豆" maxlength="8"></div><button class="interaction-btn" id="btnStep1" disabled>下一步</button></div><div class="interaction-step" id="step2"><h2><span class="step-num">2</span>时间悄悄走过</h2><div class="death-scene" id="deathScene"></div><p style="font-size: 1.05rem !important; margin-top: 1rem; opacity: 0.85;">
+</head><body style=""><nav id="navbar" class=""><div class="nav-title">最后一面</div><div class="nav-links"><a href="#intro">引入</a><a href="#chapter1" data-label="个体">它为何成为家人</a><a href="#chapter2" data-label="社会">当告别来临</a><a href="#chapter3" data-label="产业">奔赴最后的体面</a><a href="#chapter4" data-label="告别">最后一面</a><a href="#chapter5" data-label="治理">告别的规则</a><a href="#call-to-action">不止于告别</a><a href="#epilogue">尾声</a></div></nav><section id="cover"><div class="cover-content"><div class="cover-title"><span class="main" >最后一面</span><span class="sub" >1.24 亿宠物 · 300 万次告别</span></div></div><div class="scroll-hint" onclick="document.getElementById(&#39;intro&#39;).scrollIntoView({behavior:&#39;smooth&#39;})">向下滚动 ↓</div></section><section id="interaction" class="interaction-intro"><div class="interaction-card sketch-box"><div class="interaction-step active" id="step1"><h2><span class="step-num">1</span>请选择你的宠物，并给它起个名字</h2><div class="pet-selector"><div class="pet-option" data-pet="dog" data-icon="" data-lifespan="12"><img loading="lazy" src="images/img_9a911d8a80ae7ade.png" alt="狗" class="pet-icon-img"><span>狗</span></div><div class="pet-option" data-pet="cat" data-icon="" data-lifespan="14"><img loading="lazy" src="images/img_636ba2b85b418814.png" alt="猫" class="pet-icon-img"><span>猫</span></div><div class="pet-option" data-pet="rabbit" data-icon="" data-lifespan="8"><img loading="lazy" src="images/img_d4fbe4f5a8e70b8e.png" alt="兔子" class="pet-icon-img"><span>兔子</span></div><div class="pet-option" data-pet="hamster" data-icon="" data-lifespan="2"><img loading="lazy" src="images/img_ec141fd92639c0fc.png" alt="仓鼠" class="pet-icon-img"><span>仓鼠</span></div><div class="pet-option" data-pet="bird" data-icon="" data-lifespan="5"><img loading="lazy" src="images/img_cb59b0eb6033ebc8.png" alt="鸟" class="pet-icon-img"><span>鸟</span></div></div><div class="pet-name-input"><label for="petName">它叫什么名字？</label><input type="text" id="petName" placeholder="比如：豆豆" maxlength="8"></div><button class="interaction-btn" id="btnStep1" disabled>下一步</button></div><div class="interaction-step" id="step2"><h2><span class="step-num">2</span>时间悄悄走过</h2><div class="death-scene" id="deathScene"></div><p style="font-size: 1.05rem !important; margin-top: 1rem; opacity: 0.85;">
 现在，你需要做出一个选择：
 </p><div class="choice-options"><div class="choice-btn" data-choice="discard">随意丢弃</div><div class="choice-btn" data-choice="bury">自主埋葬</div><div class="choice-btn" data-choice="professional">寻找专业机构</div><div class="choice-btn" data-choice="other">其他 / 尚未决定</div></div></div><div class="data-reveal" id="dataReveal"><span class="big-number" id="revealNumber"></span><p id="revealText"></p></div><div class="enter-story" id="enterStory"><p style="font-size: 1.05rem !important; opacity: 0.85;">
 每年，中国有数百万个家庭和你一样，面对这个没有标准答案的问题。
 </p><a onclick="document.getElementById('intro').scrollIntoView({behavior:'smooth'})">→ 进入正文</a></div></div></section><section id="intro" style="background: var(--paper-dark);"><div class="chapter-content"><p class="lead" style="text-align: center; font-size: 1.5rem; line-height: 2.2;">
 当宠物面临死亡，我们如何坦然、体面、有尊严地送它们最后一程？<br>
-在中国，每年约有300万只宠物离世，这意味着数百万个家庭必须替它们做出最后的抉择。
+在中国，每年约有300万只宠物离世。数百万个家庭必须替它们做出最后的抉择。
 </p><div class="story-card sketch-box story-with-illustration" ><div class="story-card-content"><h3>小林的故事</h3><p>
 2019年，独自在省会城市租房的小林，抱回了一只两个月大的金毛犬。她给它取名"豆豆"。<br><br>
 那时她刚毕业，工作压力大，一个人住在十几平米的出租屋里。豆豆成了她的室友、闹钟、晚归时守在门口的温暖。<br><br>
@@ -3229,17 +3379,17 @@ nav{padding:0.6rem 1rem;}
 "它不是宠物，是家人。我想送它最后一程，像送一个亲人那样。"
 <div class="quote-author">—— 小林</div></div><div class="data-grid"><div class="data-card sketch-box" ><span class="number" >1.24亿</span><span class="label">2024年中国城镇宠物数量</span><span class="data-source">《2025年中国宠物行业白皮书》</span></div><div class="data-card sketch-box" ><span class="number" >约300万</span><span class="label">每年离世宠物数量（估算）</span><span class="data-source">按年死亡率约3%估算</span></div><div class="data-card sketch-box" ><span class="number" >8373</span><span class="label">宠物殡葬现存企业</span><span class="data-source">企查查，截至2025.6.19</span></div></div><div class="data-hint-box"><div class="data-hint-header"><span class="data-hint-title">数据说明</span><span class="data-hint-toggle">▶</span></div><div class="data-hint-body">页面中的核心数字来自不同统计口径，需要审慎理解：<br>· “1.24亿”指2024年中国城镇宠物犬猫总量，源自中国畜牧业协会宠物产业分会《2025年中国宠物行业白皮书》；<br>· “约300万”按年死亡率约3%估算，并非官方发布的死亡宠物统计，仅用于刻画年度告别规模的数量级。该死亡率参考了美国宠物产品协会（APPA）报告的4%-5%年死亡率以及中国市场宠物平均年龄更低的特征，取3%为保守下限估计，实际数值在2.5%-5%区间均有可能；<br>· “8373家”为企查查截至2025年6月19日“现存”宠物殡葬企业数量，使用“经营范围含宠物殡葬”口径；<br>· 不同平台（企查查/天眼查）因收录范围与关键词匹配规则差异，企业数量差异可达数倍。本作品中的数字主要用于呈现趋势与结构，而非精确会计意义上的统计。</div></div>
 </div></section><section id="chapter1"><div class="chapter-cover" style="background-image: url('images/img_9a5e34970cc7ecae.webp');"><span class="chapter-number">01</span><div class="chapter-cover-content"><h2 style="text-align: center;">它为何成为家人</h2><p class="chapter-subtitle" style="text-align: center;">独居时代里，一种无需言语的陪伴</p></div></div><div class="chapter-content"><p class="lead">
-在中国，宠物的角色正在经历一场静默的革命。2024年，中国城镇犬猫数量突破 <span class="highlight">1.24亿只</span>，比2017年的0.87亿只增长了 <span class="highlight">42.5%</span>。与此同时，中国独居人口规模已达约 <span class="highlight">1.23亿</span>，20至50岁中青年独居者达 <span class="highlight">1.1亿</span>，一人户家庭占比约为19.5%。它们从"看门护院"的功能性动物，逐渐成为家庭成员、情感寄托和独居生活中的重要陪伴。而这场革命的背后，是城市化、少子化与独居化三重社会变迁的交织。
+在中国，宠物正在悄悄更换它在家庭里的位置。2024年，中国城镇犬猫数量突破 <span class="highlight">1.24亿只</span>，比2017年的0.87亿只增长了 <span class="highlight">42.5%</span>。与此同时，中国独居人口规模已达约 <span class="highlight">1.23亿</span>，20至50岁中青年独居者达 <span class="highlight">1.1亿</span>，一人户家庭占比约为19.5%。它们从"看门护院"的功能性动物，逐渐变成家庭成员、情感寄托，填进独居生活的缝隙里。推动这场变迁的，是城市化、少子化、独居化三道同时卷来的浪潮。
 </p><p>
 这两个数字并非巧合：独居人口的增长曲线与宠物数量的增长曲线高度重合。当"一个人生活"成为越来越多年轻人的选择，宠物填补了家庭结构中伴侣与子女角色的空缺。下图展示了2017年至2024年城镇宠物数量的变化，增速最快的阶段恰好与独居人口扩张、疫情居家陪伴需求上升的时期重叠。
-</p><div class="chart-wrapper"><div class="chart-controls"><button class="chart-btn active" data-chart="petGrowth" data-view="amount">宠物数量</button><button class="chart-btn" data-chart="petGrowth" data-view="rate">同比增长率</button></div><div class="chart-container sketch-box" ><canvas id="petGrowthChart"></canvas></div><p class="caption">数据来源：中国畜牧业协会宠物产业分会《2025年中国宠物行业白皮书》</p><div class="chart-detail" id="petGrowthDetail">
+</p><div class="chart-wrapper"><div class="chart-controls"><button class="chart-btn active" data-chart="petGrowth" data-view="amount">宠物数量</button><button class="chart-btn" data-chart="petGrowth" data-view="rate">同比增长率</button></div><div class="chart-container sketch-box" ><canvas id="petGrowthChart"></canvas></div><p class="caption">数据来源：中国畜牧业协会宠物产业分会《2025年中国宠物行业白皮书》 | 单位：亿只 | 数据时间：2017-2024</p><div class="chart-detail" id="petGrowthDetail">
 点击图表数据点，可查看该年份宠物数量与增长背景。2017-2024年，城镇宠物数量从0.87亿增长至1.24亿，年均复合增长率约5.1%，2019-2021年增速最快。
 </div></div><h3>独居人口与宠物数量：两条重合的曲线？</h3><p>
-“独居人口增长曲线与宠物数量增长曲线高度重合”不是一个修辞，而是一个可以用统计方法检验的论断。我们将2017-2022年国家统计局公布的一人户家庭数量（万户）与同期城镇宠物数量（亿只）进行配对，计算皮尔逊相关系数，发现二者呈<strong>显著正相关（r≈0.95）</strong>。这意味着，随着一人户家庭增加，城镇宠物数量也在同步上升。
-</p><div class="chart-wrapper"><div class="chart-container sketch-box" ><canvas id="correlationChart"></canvas></div><p class="caption">数据来源：国家统计年鉴（一人户家庭）、中国畜牧业协会宠物产业分会《2025年中国宠物行业白皮书》（宠物数量）</p><div class="chart-detail" id="correlationDetail">
+"独居人口增长曲线与宠物数量增长曲线高度重合"，这并非修辞——统计检验可以给出回答。我们将2017-2022年国家统计局公布的一人户家庭数量（万户）与同期城镇宠物数量（亿只）进行配对，计算皮尔逊相关系数，发现二者呈<strong>显著正相关（r≈0.95）</strong>。这意味着，随着一人户家庭增加，城镇宠物数量也在同步上升。
+</p><div class="chart-wrapper"><div class="chart-container sketch-box" ><canvas id="correlationChart"></canvas></div><p class="caption">数据来源：国家统计年鉴（一人户家庭）、中国畜牧业协会宠物产业分会《2025年中国宠物行业白皮书》（宠物数量） | 单位：万户 / 亿只 | 数据时间：2017-2022</p><div class="chart-detail" id="correlationDetail">
 点击数据点查看该年份一人户家庭与宠物数量的对应关系。2017-2022年，一人户家庭从5722万户增至8335万户，宠物数量从0.87亿增至1.17亿。
 </div><div class="data-hint-box" style="margin-top:-3rem;margin-bottom:3rem;":3rem;position:relative;top:-2rem;"><div class="data-hint-header"><span class="data-hint-title">统计批判</span><span class="data-hint-toggle">▶</span></div><div class="data-hint-body">本页呈现的“独居人口与宠物数量高度相关（r≈0.95）”为基于公开数据的示意性计算，存在以下统计局限：<br>· 时间跨度短：仅有2017-2022年共6个观测值，自由度有限，相关系数的稳定性不足；<br>· 口径差异：2020年为第七次人口普查全口径数据，其他年份多为抽样调查，一人户家庭的统计口径前后不完全一致；<br>· 混淆变量：宠物数量增长还受人均收入、城镇化率、宠物文化普及、疫情居家等多因素影响，简单双变量相关不能证明因果关系；<br>· 数据来源混合：一人户家庭来自国家统计年鉴，宠物数量来自行业协会白皮书，两者调查对象与估计方法不同。若将2020年替换为抽样估算值，r仍高于0.80，结论具有一定稳健性，但建议将其理解为“伴随趋势”而非“因果证据”。</div></div><p>
-从结构上看，90后仍是养宠主力军，占比 <span class="highlight">42.7%</span>；00后占比持续提升。女性养宠者占比约 <span class="highlight">62%</span>。高线城市20-30岁的新锐白领与中产，是这一趋势的核心推动者。他们注重精致生活与科学养宠，愿意为宠物的健康、情感与品质消费买单。
+从结构上看，90后仍是养宠主力军，占比 <span class="highlight">42.7%</span>；00后占比 <span class="highlight">25%</span>，且仍在持续提升。女性养宠者占比 <span class="highlight">62%</span>。高线城市20-30岁的新锐白领与中产，是这一趋势的核心推动者——高线城市养宠人群占比 <span class="highlight">68%</span>。他们注重精致生活与科学养宠，愿意为宠物的健康、情感与品质消费买单。
 </p><div class="two-col"><div><h3>哪些动物在被选择？</h3><p>
 《2025年中国宠物行业白皮书》显示，2024年中国城镇宠物犬数量为 <span class="highlight">5258万只</span>，宠物猫数量为 <span class="highlight">7153万只</span>，猫首次在数量上明显超过犬。这一转变与都市居住空间缩小、生活节奏加快密切相关：猫对空间需求更低、不需要每天外出遛放，更适合租房独居的年轻人。
 </p><p>
@@ -3254,22 +3404,22 @@ nav{padding:0.6rem 1rem;}
 对许多年轻人而言，宠物是压力的缓冲带、是沉默的倾听者，也是出租屋里唯一迎接自己回家的生命。报告显示，养宠成为年轻人缓解孤独、释放压力的核心情绪出口。
 </p><p>
 小林就是这样的年轻人。她不是不想恋爱，不是不想回家，只是生活被工作切割成碎片。豆豆填补了那些缝隙：加班的深夜，它趴在脚边；崩溃的周末，它把头搁在她膝盖上。
-</p></div><div><div class="sketch-box" style="padding: 1.5rem;"><h3 style="margin-top: 0;">养宠人群画像</h3><div class="comparison-bar"><span class="bar-label">90后</span><div class="bar-track"><div class="bar-fill" style="width: 42.7%"></div></div><span class="bar-value">42.7%</span></div><div class="comparison-bar"><span class="bar-label">00后</span><div class="bar-track"><div class="bar-fill" style="width: 25%"></div></div><span class="bar-value">25%+</span></div><div class="comparison-bar"><span class="bar-label">女性</span><div class="bar-track"><div class="bar-fill" style="width: 62%"></div></div><span class="bar-value">62%</span></div><div class="comparison-bar"><span class="bar-label">高线城市</span><div class="bar-track"><div class="bar-fill" style="width: 68%"></div></div><span class="bar-value">68%+</span></div><p class="caption" style="margin-bottom: 0;">数据来源：《2025年中国宠物行业白皮书》及公开行业数据</p></div></div></div><p>
-当宠物从"动物"变成"家人"，它们的离开就不再是一件可以轻描淡写的事。数据显示，单只宠物年均消费持续提升，2024年城镇宠物消费市场规模已突破 <span class="highlight">3000亿元</span>。这意味着，人们不仅在宠物活着时投入情感与金钱，也在思考：当生命终结，如何为这段关系画上体面的句号。
+</p></div><div><div class="sketch-box" style="padding: 1.5rem;"><h3 style="margin-top: 0;">养宠人群画像</h3><div class="comparison-bar"><span class="bar-label">90后</span><div class="bar-track"><div class="bar-fill" style="width: 42.7%"></div></div><span class="bar-value">42.7%</span></div><div class="comparison-bar"><span class="bar-label">00后</span><div class="bar-track"><div class="bar-fill" style="width: 25%"></div></div><span class="bar-value">25%</span></div><div class="comparison-bar"><span class="bar-label">女性</span><div class="bar-track"><div class="bar-fill" style="width: 62%"></div></div><span class="bar-value">62%</span></div><div class="comparison-bar"><span class="bar-label">高线城市</span><div class="bar-track"><div class="bar-fill" style="width: 68%"></div></div><span class="bar-value">68%</span></div><p class="caption" style="margin-bottom: 0;">数据来源：《2025年中国宠物行业白皮书》及公开行业数据</p></div></div></div><p>
+当宠物从"动物"变成"家人"，它们的离开就不再是一件可以轻描淡写的事。数据显示，单只宠物年均消费持续提升，2024年城镇宠物消费市场规模已突破 <span class="highlight">3000亿元</span>。但真正值得关注的，不是市场在变大，而是<span class="highlight">一种新的情感需求正在从个体蔓延为社会现象</span>：当生命终结，如何为这段关系画上体面的句号——这不再是一个私人问题，而是一个即将撞上公共服务短板的巨大需求。
 </p>
-</div></section><section id="chapter2" style="background: var(--paper-dark);"><div class="chapter-cover" style="background-image: url('images/img_e81b8fbd5fa4bf33.webp');"><span class="chapter-number">02</span><div class="chapter-cover-content"><h2 style="text-align: center;">当告别来临</h2><p class="chapter-subtitle" style="text-align: center;">传统观念与现代情感之间的拉扯</p></div></div><div class="chapter-content"><p class="lead">
+</div></section><section id="chapter2" style="background: var(--paper-dark);"><div class="chapter-cover" style="background-image: url('images/img_e81b8fbd5fa4bf33.webp');"><span class="chapter-number">02</span><div class="chapter-cover-content"><h2 style="text-align: center;">当告别来临</h2><p class="chapter-subtitle" style="text-align: center;">从私人悲伤到公共服务：当情感需求撞上制度空白</p></div></div><div class="chapter-content"><p class="lead">
 豆豆确诊后，小林第一次认真考虑"死亡"这个问题。她把想法告诉父母和朋友，得到的反应却很复杂。
 </p><div class="speech-bubble-pair" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2.5rem 0;"><div style="display: flex; flex-direction: column; gap: 0.5rem;"><div style="display: flex; align-items: flex-end; gap: 0.75rem;"><svg viewBox="0 0 120 120" width="72" height="72" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;"><ellipse cx="60" cy="60" rx="38" ry="42" fill="#f8f6f2" stroke="#1a1a1a" stroke-width="2.5"/><path d="M22 50 Q20 22 45 18 Q60 14 75 18 Q100 22 98 50 Q95 34 84 28 Q60 22 36 28 Q25 34 22 50" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/><circle cx="45" cy="55" r="3" fill="#1a1a1a"/><circle cx="75" cy="55" r="3" fill="#1a1a1a"/><circle cx="45" cy="55" r="9" fill="none" stroke="#1a1a1a" stroke-width="1.5"/><circle cx="75" cy="55" r="9" fill="none" stroke="#1a1a1a" stroke-width="1.5"/><line x1="54" y1="55" x2="66" y2="55" stroke="#1a1a1a" stroke-width="1.5"/><path d="M38 45 Q45 42 52 45" fill="none" stroke="#1a1a1a" stroke-width="1.5"/><path d="M68 45 Q75 42 82 45" fill="none" stroke="#1a1a1a" stroke-width="1.5"/><path d="M60 62 L58 74 L62 74" fill="none" stroke="#1a1a1a" stroke-width="1.5"/><path d="M48 82 Q60 86 72 82" fill="none" stroke="#1a1a1a" stroke-width="1.5"/><path d="M35 70 Q40 72 45 70" fill="none" stroke="#1a1a1a" stroke-width="1"/><path d="M75 70 Q80 72 85 70" fill="none" stroke="#1a1a1a" stroke-width="1"/><path d="M30 98 L40 106 L60 100 L80 106 L90 98" fill="none" stroke="#1a1a1a" stroke-width="1.5"/></svg><div class="speech-bubble" style="position: relative; background: #f8f6f2; border: 2px solid #1a1a1a; border-radius: 20px; padding: 1.25rem 1.5rem; box-shadow: 3px 3px 0 rgba(0,0,0,0.08); flex: 1;"><div style="position: absolute; bottom: 20px; left: -12px; width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-right: 12px solid #1a1a1a;"></div><div style="position: absolute; bottom: 22px; left: -8px; width: 0; height: 0; border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-right: 10px solid #f8f6f2;"></div><p style="font-style: italic; margin: 0; line-height: 1.7;">"以前村里狗死了，找个地方埋了就行。哪还需要花钱火化？"</p></div></div><div style="font-weight: 600; font-size: 0.95rem; padding-left: 84px;">—— 小林的父亲</div></div><div style="display: flex; flex-direction: column; gap: 0.5rem;"><div style="display: flex; align-items: flex-end; gap: 0.75rem; flex-direction: row-reverse;"><svg viewBox="0 0 120 120" width="72" height="72" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;"><ellipse cx="60" cy="60" rx="36" ry="40" fill="#f8f6f2" stroke="#1a1a1a" stroke-width="2.5"/><path d="M20 55 Q18 24 45 18 Q60 12 75 18 Q102 24 100 55 Q100 70 95 86 Q90 50 84 40 Q60 32 36 40 Q30 50 25 86 Q20 70 20 55" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/><path d="M35 30 Q45 38 55 32 Q60 36 65 32 Q75 38 85 30" fill="none" stroke="#1a1a1a" stroke-width="1.5"/><ellipse cx="45" cy="58" rx="4" ry="5" fill="#1a1a1a"/><ellipse cx="75" cy="58" rx="4" ry="5" fill="#1a1a1a"/><path d="M40 48 Q45 46 50 48" fill="none" stroke="#1a1a1a" stroke-width="1.5"/><path d="M70 48 Q75 46 80 48" fill="none" stroke="#1a1a1a" stroke-width="1.5"/><path d="M60 62 L58 74 L62 74" fill="none" stroke="#1a1a1a" stroke-width="1.5"/><path d="M48 84 Q60 90 72 84" fill="none" stroke="#1a1a1a" stroke-width="1.5"/><circle cx="38" cy="72" r="5" fill="rgba(197,61,67,0.15)"/><circle cx="82" cy="72" r="5" fill="rgba(197,61,67,0.15)"/><path d="M32 100 L45 108 L60 102 L75 108 L88 100" fill="none" stroke="#1a1a1a" stroke-width="1.5"/></svg><div class="speech-bubble" style="position: relative; background: #f8f6f2; border: 2px solid #1a1a1a; border-radius: 20px; padding: 1.25rem 1.5rem; box-shadow: 3px 3px 0 rgba(0,0,0,0.08); flex: 1;"><div style="position: absolute; bottom: 20px; right: -12px; width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 12px solid #1a1a1a;"></div><div style="position: absolute; bottom: 22px; right: -8px; width: 0; height: 0; border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-left: 10px solid #f8f6f2;"></div><p style="font-style: italic; margin: 0; line-height: 1.7;">"它是你的家人，你当然有权选择好好告别。"</p></div></div><div style="font-weight: 600; font-size: 0.95rem; text-align: right; padding-right: 84px;">—— 小林的朋友</div></div></div><h3>更短的告别周期</h3><p>
 宠物与人类之间最深的遗憾，或许不是爱不够，而是时间不够。宠物狗的平均寿命约为 <span class="highlight">10-13年</span>，宠物猫约为 <span class="highlight">12-15年</span>。一只金毛犬用一生陪伴一个年轻人从毕业到而立，却往往在主人尚未真正学会告别时，就要先走一步。
 </p><p>
-这意味着，养宠人从决定接纳一个生命开始，就注定要在相对短暂的时间里，反复练习失去。英国 The Kennel Club 对 5700 只宠物犬死亡原因的调研显示，<span class="highlight">癌症</span>是犬类死亡的首要原因，占比接近四分之一；其次是衰老、心血管疾病与肾病。在中国，宠物医疗白皮书也指出，肿瘤、心脏病、肾病、泌尿系统疾病正成为犬猫死亡的主要病因。
-</p><div class="chart-wrapper"><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 点击雷达图节点查看死因详情</span><div class="chart-container sketch-box" ><canvas id="deathCauseChart"></canvas></div><p class="caption">数据来源：The Kennel Club（英国犬业俱乐部）宠物犬死亡原因调研、中国宠物医疗行业报告</p><div class="chart-detail" id="deathCauseDetail">
+换句话说，养宠人从决定接纳一个生命开始，就注定要在相对短暂的时间里，反复练习失去。英国 The Kennel Club 对 5700 只宠物犬死亡原因的调研显示，<span class="highlight">癌症</span>是犬类死亡的首要原因，占比接近四分之一；其次是衰老、心血管疾病与肾病。在中国，宠物医疗白皮书也指出，肿瘤、心脏病、肾病、泌尿系统疾病正成为犬猫死亡的主要病因。
+</p><div class="chart-wrapper"><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 点击雷达图节点查看死因详情</span><div class="chart-container sketch-box" ><canvas id="deathCauseChart"></canvas></div><p class="caption">数据来源：The Kennel Club（英国犬业俱乐部）宠物犬死亡原因调研、中国宠物医疗行业报告 | 单位：% | 数据时间：2024</p><div class="chart-detail" id="deathCauseDetail">
 癌症、衰老、心血管疾病和肾病是宠物犬死亡的主要原因。随着宠物老龄化加剧，慢性病与肿瘤相关死亡比例持续上升。
 </div></div><p>
-这种"更短的死亡周期"，是理解宠物殡葬需求的关键背景。当一个人明知陪伴终将提前结束，他往往更想在终点为这段关系争取一点仪式感——这不是矫情，而是对有限陪伴的郑重回应。
+这种"更短的死亡周期"，是理解宠物殡葬需求的关键背景。当一个人明知陪伴终将提前结束，他往往更想在终点为这段关系争取一点仪式感——说到底，不过是想在有尽的时间里，给出最后一次郑重。
 </p><h3>谁在寻找体面的告别？</h3><p>
 多项行业调研显示，越来越多消费者将宠物殡葬视为"与家人告别的重要仪式"，城市中已有相当比例的宠物主人会在宠物死亡后选择专业殡葬服务。但这同时也意味着，仍有大量人群尚未接受或能够获得专业服务。
-</p><div class="chart-wrapper"><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 点击扇区查看不同选择的人群特征</span><div class="chart-container sketch-box small" ><canvas id="attitudeChart"></canvas><div class="attitude-center-detail" id="attitudeCenterDetail"><div class="attitude-center-label">默认</div><div class="attitude-center-text">由于服务可及性不足、价格敏感与传统观念影响，自行掩埋或委托环卫处理仍是当前最常见的方式，尤其在三四线城市及农村地区。</div></div></div><p class="caption">注：数据为基于行业公开报道与调研资料的示意性分布，不同地区与统计口径存在差异。</p><div class="chart-detail" id="attitudeDetail" style="display: none; opacity: 0;">
+</p><div class="chart-wrapper"><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 点击扇区查看不同选择的人群特征</span><div class="chart-container sketch-box small" ><canvas id="attitudeChart"></canvas><div class="attitude-center-detail" id="attitudeCenterDetail"><div class="attitude-center-label">默认</div><div class="attitude-center-text">由于服务可及性不足、价格敏感与传统观念影响，自行掩埋或委托环卫处理仍是当前最常见的方式，尤其在三四线城市及农村地区。</div></div></div><p class="caption">注：数据为基于行业公开报道与调研资料的示意性分布，不同地区与统计口径存在差异。 | 单位：% | 数据时间：2025</p><div class="chart-detail" id="attitudeDetail" style="display: none; opacity: 0;">
 由于服务可及性不足、价格敏感与传统观念影响，自行掩埋或委托环卫处理仍是当前最常见的方式，尤其在三四线城市及农村地区。
 </div></div><p>
 这种分化具有明显的代际与城乡特征。我们可以把选择专业殡葬服务的人群，大致归入以下四个维度：<span class="click-guide" style="display:inline-block;font-size:0.75rem;margin-left:0.5rem;"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="13" height="17" style="vertical-align:middle;margin-right:0.15rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>悬停卡片查看详情</span>
@@ -3304,7 +3454,7 @@ nav{padding:0.6rem 1rem;}
   </div>
   <div class="dim-connector" aria-hidden="true"></div>
   <div class="dim-mid">
-    <div class="dim-peer sketch-box" data-detail="代际维度：90后、00后宠物主人占比超过六成。他们是互联网原住民，更容易通过小红书、抖音、美团等平台搜索并预约宠物殡葬服务，也更愿意为仪式感付费。">
+    <div class="dim-peer sketch-box" data-detail="代际维度：90后（42.7%）、00后（25%）宠物主人合计占比达67.7%。他们是互联网原住民，更容易通过小红书、抖音、美团等平台搜索并预约宠物殡葬服务，也更愿意为仪式感付费。">
       <div class="dim-title">代际</div>
       <div class="dim-desc">90后、00后占比高</div>
     </div>
@@ -3360,9 +3510,9 @@ nav{padding:0.6rem 1rem;}
 
 <h3>社交平台上的声音：7459条评论的情感画像</h3><p>
 小林的经历不是孤例。为了理解更多像她一样的消费者在想什么，我们收集并分析了微博、抖音、B站、知乎四个平台上与宠物殡葬相关的公开文本。经清洗后保留了<strong>7,459条有效文本</strong>（微博2,540条、抖音1,937条、B站1,624条、知乎1,358条），使用ROST CM6情感词典进行情感分析。这些来自真实用户的评论，构成了一幅“消费者困境”的集体画像：
-</p><div class="chart-wrapper"><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 点击图例筛选不同平台的情感倾向</span><div class="chart-container sketch-box" ><canvas id="sentimentChart"></canvas></div><p class="caption">数据来源：Wang et al. (2026) / ROST CM6 情感分析；样本量 7,459 条有效文本</p><div class="chart-detail" id="sentimentDetail">
+</p><div class="chart-wrapper"><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 点击图例筛选不同平台的情感倾向</span><div class="chart-container sketch-box" ><canvas id="sentimentChart"></canvas></div><p class="caption">数据来源：Wang et al. (2026) / ROST CM6 情感分析；样本量 7,459 条有效文本 | 单位：% | 数据时间：2025</p><div class="chart-detail" id="sentimentDetail">
 抖音、B站以消极情绪为主（86%、64%），多表达对价格、服务质量的质疑；知乎相对平衡，积极49%、消极26%、中性25%，讨论更偏理性；微博积极44%、消极55%，呈两极分化，同时包含支持者与批判者声音。
-</div></div><p>值得注意的是，平台之间的情感分布差异显著：微博积极44%、消极55%，而小红书和抖音的正面比例明显更高——前者主打经验分享，用户对宠物善终体验多持"虽然悲伤但值得"的复杂正面态度；后者因娱乐调性，负面内容曝光受限。微博作为舆论广场，中性比例几乎为零正反映了它的站队文化——非赞即骂，中间地带被算法和情绪双双挤压。微信公众号因抓取机制主要获取短视频嵌入的评价，文本较短，是分类不确定性最高的平台。</p><div class="chart-wrapper"><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 点击条形查看高频词反映的公众关注</span><div class="chart-container sketch-box" ><canvas id="wordFreqChart"></canvas></div><p class="caption">高频词来自微博文本的词频统计与LDA主题建模结果</p><div class="chart-detail" id="wordFreqDetail">
+</div></div><p>值得注意的是，平台之间的情感分布差异显著：微博积极44%、消极55%，而小红书和抖音的正面比例明显更高——前者主打经验分享，用户对宠物善终体验多持"虽然悲伤但值得"的复杂正面态度；后者因娱乐调性，负面内容曝光受限。微博作为舆论广场，中性比例几乎为零正反映了它的站队文化——非赞即骂，中间地带被算法和情绪双双挤压。微信公众号因抓取机制主要获取短视频嵌入的评价，文本较短，是分类不确定性最高的平台。</p><div class="chart-wrapper"><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 点击条形查看高频词反映的公众关注</span><div class="chart-container sketch-box" ><canvas id="wordFreqChart"></canvas></div><p class="caption">高频词来自微博文本的词频统计与LDA主题建模结果 | 单位：词频 | 数据时间：2025</p><div class="chart-detail" id="wordFreqDetail">
 “火化”“告别”“骨灰”“仪式”“尊重”等词高频出现，说明公众讨论不仅关注处理方式，更强调情感慰藉与生命尊严；价格、服务、家人等词则揭示了消费决策中的矛盾。
 </div></div><p>
 这些评论勾勒出一种典型困境：消费者并非不需要宠物殡葬服务，而是对“值不值”“信不信”“有没有”充满疑虑。情感上，他们希望宠物被尊重；理性上，他们担心价格虚高、服务不透明。这种矛盾，正是小林那一代年轻人在面对宠物善终时的真实心态。平台之间巨大的情感差异也揭示了一个事实：消费者并非不信任宠物殡葬，而是不信任不透明的市场。小红书的高正面率说明，好的服务是会被看见的；微博的高负面率说明，差的体验是会被扩散的。市场乱象与消费者权益保护缺位，构成了这个行业最根本的双重映射。
@@ -3374,20 +3524,20 @@ nav{padding:0.6rem 1rem;}
 </p><p>
 政策法规的演进，某种程度上也在回应这种需求的变化：<span class="click-guide" style="display:inline-block;font-size:0.75rem;margin-left:0.5rem;"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="13" height="17" style="vertical-align:middle;margin-right:0.15rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>点击查看详情</span>
 </p><div class="timeline-interactive"><div class="tl-track"></div><div class="tl-items"><div class="tl-item" data-year="2014"><div class="tl-dot"></div><span class="tl-year">2014</span><div class="tl-card sketch-box"><div class="tl-card-title">《北京市动物防疫条例》</div><div class="tl-card-brief">饲养动物死亡后，不得随意处置。</div><div class="tl-card-detail"><p>是中国较早将宠物尸体处理纳入地方法规的尝试，为后续全国性立法提供实践参考。</p><p class="tl-impact"><strong>影响：</strong>打破传统认知，将宠物善终从个人事务提升为公共卫生议题。</p></div></div></div><div class="tl-item" data-year="2021"><div class="tl-dot"></div><span class="tl-year">2021</span><div class="tl-card sketch-box"><div class="tl-card-title">《动物防疫法》修订</div><div class="tl-card-brief">病死动物应进行无害化处理，不得随意弃置。</div><div class="tl-card-detail"><p>新修订的《动物防疫法》将无害化处理覆盖所有病死动物，包括宠物。</p><p class="tl-impact"><strong>影响：</strong>宠物殡葬服务获得法律层面正当性，合规门槛开始形成。</p></div></div></div><div class="tl-item" data-year="2025"><div class="tl-dot"></div><span class="tl-year">2025</span><div class="tl-card sketch-box"><div class="tl-card-title">行业规模加速扩张</div><div class="tl-card-brief">市场规模预计达50亿元，相关企业超8000家。</div><div class="tl-card-detail"><p>2023年行业规模约18.25亿，两年增长近2倍。但71.61%企业成立不足3年。</p><p class="tl-impact"><strong>影响：</strong>市场规模与监管滞后张力达顶点——需求激增但标准未跟上。</p></div></div></div><div class="tl-item" data-year="2026"><div class="tl-dot"></div><span class="tl-year">2026</span><div class="tl-card sketch-box"><div class="tl-card-title">进入强监管周期</div><div class="tl-card-brief">对资质、流程、环保提出更高要求。</div><div class="tl-card-detail"><p>多地推动行业标准化：深圳运营首个家养宠物无害化处理中心；行业协会推进团体标准。</p><p class="tl-impact"><strong>影响：</strong>行业从事后管理转向事前规范，规模化机构迎发展窗口。</p></div></div></div></div></div><p style="font-size:1.05rem;line-height:1.9;color:var(--ink);">
-对小林来说，这不是简单的"怎么处理"，而是"怎样才算不辜负这六年的陪伴"。她决定：要带豆豆去做一次正式的告别。这个决定，意味着她要进入一个她从未了解过的行业。
+对小林来说，问题早已超出了"怎么处理"——她想的是，怎样才算没有辜负这六年的陪伴。她决定：带豆豆去做一次正式的告别。这意味着，她要进入一个她从未了解过的行业。
 </p>
-</div></section><section id="chapter3"><div class="chapter-cover" style="background-image: url('images/img_bb0efc0e71653261.webp');"><span class="chapter-number">03</span><div class="chapter-cover-content"><h2 style="text-align: center;">奔赴最后的体面</h2><p class="chapter-subtitle" style="text-align: center;">一个产业在城市缝隙中生长</p></div></div><div class="chapter-content"><p class="lead">
+</div></section><section id="chapter3"><div class="chapter-cover" style="background-image: url('images/img_bb0efc0e71653261.webp');"><span class="chapter-number">03</span><div class="chapter-cover-content"><h2 style="text-align: center;">奔赴最后的体面</h2><p class="chapter-subtitle" style="text-align: center;">一个野蛮生长的产业，与城乡之间800公里的服务鸿沟</p></div></div><div class="chapter-content"><p class="lead">
 小林所在的城市是一座三线小城。她在手机上搜索"宠物殡葬"，弹出的结果寥寥无几——最近的机构在80多公里外的省会。这不是偶然：中国宠物殡葬服务目前高度集中在 <span class="highlight">一二线城市</span>与部分省会城市。
 </p><p>
 关于企业数量，不同平台因统计口径差异给出不同数字。企查查数据显示，截至2025年6月19日，宠物殡葬现存企业 <span class="highlight">8373家</span>，其中71.61%成立不足3年；而天眼查2025年9月的数据则显示，全国现存宠物殡葬相关企业已突破 <span class="highlight">4.3万家</span>，其中山西、山东、福建三省合计超过1.7万家，占全国总量的40.6%。两个数据的巨大差异，反映了统计口径的不同：企查查主要统计"经营范围含宠物殡葬"的企业，而天眼查的口径可能包含更多关联注册企业。但无论采用哪个口径，一个事实很明确——专业服务在三四线城市及县城几乎空白。
 </p><h3>谁在为「最后一面」做准备？</h3>
 <p>从地图颜色深浅可以看出，宠物殡葬企业分布极不均衡：深色的山东、山西、福建三省数量遥遥领先，但若仔细看数据背后的故事，会发现「注册企业多」不等于「专业服务强」。</p>
-<div class="chart-wrapper"><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 悬停或点击地图省份查看分布详情</span><div class="chart-container sketch-box map" id="chinaMapContainer"><div id="chinaMap" style="width: 100%; height: 100%;"></div></div><p class="caption">数据来源：企查查、天眼查公开数据（注：不同平台统计口径存在差异，数值为示意性分布；香港、澳门、台湾地区因企业登记与统计体系不同，未纳入本图大陆口径，故显示为 0）</p><div class="chart-detail" id="mapDetail">
+<div class="chart-wrapper"><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 悬停或点击地图省份查看分布详情</span><div class="chart-container sketch-box map" id="chinaMapContainer"><div id="chinaMap" style="width: 100%; height: 100%;"></div></div><p class="caption">数据来源：企查查、天眼查公开数据（注：不同平台统计口径存在差异，数值为示意性分布；香港、澳门、台湾地区因企业登记与统计体系不同，数据暂缺 / 未纳入本次统计口径） | 单位：企业数量指数 | 数据时间：2025</p><div class="chart-detail" id="mapDetail">
 华东、华北地区宠物殡葬企业密度最高，中西部及东北地区服务供给明显不足。
 </div></div>
 <p>从地图上看，<span class="highlight">山东、山西、福建</span>三省在注册企业数量上遥遥领先，三省合计占全国相关注册企业的四成以上。但这背后有数据口径的差异：天眼查的「相关企业」口径较宽，会把经营范围含「宠物服务」「动物无害化处理」「宠物用品」等关联主体一并计入，而这些企业未必真正从事宠物殡葬服务。山东作为农业与畜禽养殖大省，动物无害化处理产业链基础雄厚；山西、福建则因大量中小微企业以宽泛经营范围注册，被集中计入统计。因此，地图上的「高指数」更多反映的是<span class="highlight">注册统计特征</span>，而非本地专业殡葬服务的真实密度。</p>
 <p>若抛开统计口径，看实际能提供火化、告别厅、纪念等完整服务的机构，则高度集中在 <span class="highlight">北京、上海、广州、深圳、成都、杭州、南京、苏州</span> 等一二线城市及省会。这些城市独居青年多、宠物消费成熟、情感付费意愿强，支撑了相对规范的市场。</p>
-<p>而地图的冷色区域——中西部、东北及广大三四线城市——正是故事中「小林」们的所在。她们把宠物当家人，却可能要驱车数十甚至上百公里，才能把豆豆送到最近的火化机构。企业的「注册地」与服务的「可及性」之间存在巨大鸿沟，这正是宠物殡葬行业最真实的矛盾：<span class="highlight">需求遍布全国，而专业服务仍是大城市的特权</span>。</p><p>
+<p>而地图的冷色区域——中西部、东北及广大三四线城市——就是故事中「小林」们的所在。她们把宠物当家人，却可能要驱车数十甚至上百公里，才能把豆豆送到最近的火化机构。企业的「注册地」与服务的「可及性」之间存在着巨大的鸿沟，也是宠物殡葬行业最真实的矛盾：<span class="highlight">需求遍布全国，而专业服务仍是大城市的特权</span>。</p><p>
 从数据上看，宠物殡葬市场正在快速膨胀。据中研普华研究院等机构预测，2023年中国宠物殡葬市场规模约为 <span class="highlight">18.25亿元</span>，预计2025年突破 <span class="highlight">50亿元</span>，2030年有望超过 <span class="highlight">100亿元</span>。但市场的扩张速度，远超监管与标准化的步伐。
 </p><div class="data-hint-box"><div class="data-hint-header"><span class="data-hint-title">预测数据的局限性与不确定性</span><span class="data-hint-toggle">▶</span></div><div class="data-hint-body">市场规模预测（2023年约18.25亿元、2025年约50亿元、2030年超100亿元）为中研普华研究院等机构基于行业调研的估算，并非官方统计。需要注意：<br>· 定义分歧：不同机构对“宠物殡葬市场”边界理解不同，有的仅统计火化服务，有的纳入墓地、纪念品、线上祭奠、善终咨询等，导致数值差异可达数倍；<br>· 数据基础薄弱：行业缺乏强制登记与统一口径，企业数量、客单价、实际渗透率等核心参数多来自抽样调研或平台爬取，存在样本偏差；<br>· 增长假设不确定：预测通常假设宠物数量、火化率、客单价持续线性增长，但政策监管、经济周期、公众观念、宠物保险普及等因素都可能使实际路径偏离；<br>· 建议使用区间而非点估计：在±30%～50%的偏差范围内看待这些数字，更关注“需求快速增长但服务供给不足”的趋势判断，而非具体数值。</div></div><div class="chart-wrapper"><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 滚动查看产业从小树苗长成大树（循环动画）</span><div class="chart-container sketch-box" style="height: 520px;"><div id="marketTree" class="market-tree"><svg viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg" id="treeAnimSvg"><style>
 .ty{font-family:'Noto Serif SC','Songti SC','SimSun',serif;font-size:15px;fill:#555;text-anchor:middle}
@@ -3411,19 +3561,19 @@ nav{padding:0.6rem 1rem;}
 她在备忘录里记下了三家机构的对比：
 </p><div class="spiral-notebook" style="position: relative; background: #fdfcf8; border: 2px solid #1a1a1a; border-radius: 10px; padding: 2rem 1.5rem 2rem 4.5rem; margin: 2rem 0; box-shadow: 6px 6px 0 rgba(0,0,0,0.1); background-image: repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(26,26,26,0.07) 39px, rgba(26,26,26,0.07) 40px); line-height: 40px; min-height: 280px;"><div style="position: absolute; left: 0; top: 0; bottom: 0; width: 2.8rem; background: #e8e4dc; border-right: 1px solid rgba(26,26,26,0.15); border-radius: 10px 0 0 10px;"></div><div style="position: absolute; left: 1.9rem; top: 2.2rem; width: 0.55rem; height: 0.55rem; background: #1a1a1a; border-radius: 50%;"></div><div style="position: absolute; left: 1.9rem; top: 4.2rem; width: 0.55rem; height: 0.55rem; background: #1a1a1a; border-radius: 50%;"></div><div style="position: absolute; left: 1.9rem; top: 6.2rem; width: 0.55rem; height: 0.55rem; background: #1a1a1a; border-radius: 50%;"></div><div style="position: absolute; left: 1.9rem; top: 8.2rem; width: 0.55rem; height: 0.55rem; background: #1a1a1a; border-radius: 50%;"></div><div style="position: absolute; left: 1.9rem; top: 10.2rem; width: 0.55rem; height: 0.55rem; background: #1a1a1a; border-radius: 50%;"></div><div style="position: absolute; left: 1.9rem; top: 12.2rem; width: 0.55rem; height: 0.55rem; background: #1a1a1a; border-radius: 50%;"></div><div style="position: absolute; left: 0.8rem; top: 2.15rem; width: 1.6rem; height: 0.7rem; border: 2px solid #555; border-radius: 50%; transform: rotate(-12deg); opacity: 0.8;"></div><div style="position: absolute; left: 0.8rem; top: 4.15rem; width: 1.6rem; height: 0.7rem; border: 2px solid #555; border-radius: 50%; transform: rotate(-12deg); opacity: 0.8;"></div><div style="position: absolute; left: 0.8rem; top: 6.15rem; width: 1.6rem; height: 0.7rem; border: 2px solid #555; border-radius: 50%; transform: rotate(-12deg); opacity: 0.8;"></div><div style="position: absolute; left: 0.8rem; top: 8.15rem; width: 1.6rem; height: 0.7rem; border: 2px solid #555; border-radius: 50%; transform: rotate(-12deg); opacity: 0.8;"></div><div style="position: absolute; left: 0.8rem; top: 10.15rem; width: 1.6rem; height: 0.7rem; border: 2px solid #555; border-radius: 50%; transform: rotate(-12deg); opacity: 0.8;"></div><div style="position: absolute; left: 0.8rem; top: 12.15rem; width: 1.6rem; height: 0.7rem; border: 2px solid #555; border-radius: 50%; transform: rotate(-12deg); opacity: 0.8;"></div><div style="position: absolute; left: 3.4rem; top: 1rem; bottom: 1rem; width: 1px; background: rgba(197,61,67,0.35);"></div><p style="margin: 0; line-height: 40px; font-size: 1.05rem;"><strong>A店</strong>：美团报价 680 元"基础套餐"。电话里说"单独火化"，但问到能否看视频时，对方含糊其辞；<br><strong>B店</strong>：小红书推荐很多，环境照片温馨。但对方发来的营业执照经营范围只有"宠物用品销售"，没有殡葬或无害化处理；<br><strong>C店</strong>：价格最高，2400 元，但主动发了动物防疫条件合格证、火化设备照片，承诺全程视频监控。它距离省会市区还有 20 多公里，小林只能打车过去。
 </p></div><p>
-最终，她选择了 C 店。不是因为富有，而是因为她"想确认那捧灰真的是豆豆"。
+最终，她选择了 C 店。多花的钱，只为一个念头——确认那捧灰真的是豆豆。
 </p><p>
 小林的经历不是孤例。对这个新兴行业，大多数消费者都像第一次走进迷宫：没有价格锚点，没有服务标准，没有统一的投诉入口，甚至没有一条法律明确说"宠物殡葬应该由谁来管"。人们只能凭借广告、网友评价、客服话术和自己的焦虑，做出一个昂贵的决定。
 </p><h3>一条决策链：从搜索到付费</h3><p>
 如果把宠物主人的消费决策拆成几个环节，就会发现每一个环节都可能隐藏着信息缺口。
 </p><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 点击决策节点，查看每个环节的信息缺口</span><div class="decision-flow"><svg class="chain-svg" viewBox="0 0 720 700" preserveAspectRatio="none"><path d="M 250 60 C 380 90, 420 140, 360 190 C 300 240, 220 250, 200 300 C 180 350, 240 400, 360 440 C 480 480, 520 540, 420 590 C 340 630, 280 650, 320 690"/><circle cx="250" cy="60" r="8"/><circle cx="360" cy="190" r="8"/><circle cx="200" cy="300" r="8"/><circle cx="360" cy="440" r="8"/><circle cx="320" cy="690" r="8"/></svg><div class="flow-step sketch-box" data-step="trigger"><div class="flow-num">01</div><div class="flow-title">触发需求</div><div class="flow-desc">宠物离世或重病，主人情绪处于高度脆弱期。</div><span class="flow-more">查看缺口</span></div><div class="flow-step sketch-box" data-step="search"><div class="flow-num">02</div><div class="flow-title">信息搜索</div><div class="flow-desc">地图、社交平台、宠物医院推荐，信息来源混杂。</div><span class="flow-more">查看缺口</span></div><div class="flow-step sketch-box" data-step="compare"><div class="flow-num">03</div><div class="flow-title">比价咨询</div><div class="flow-desc">套餐口径不统一，"基础价"常不含接宠、消毒、告别厅。</div><span class="flow-more">查看缺口</span></div><div class="flow-step sketch-box" data-step="decide"><div class="flow-num">04</div><div class="flow-title">现场决策</div><div class="flow-desc">情绪压力下易被诱导升级，额外付费项目常见。</div><span class="flow-more">查看缺口</span></div><div class="flow-step sketch-box" data-step="review"><div class="flow-num">05</div><div class="flow-title">事后评价</div><div class="flow-desc">缺乏第三方监督，投诉渠道模糊，维权成本高。</div><span class="flow-more">查看缺口</span></div></div><div class="flow-modal" id="flowModal"><div class="flow-modal-backdrop"></div><div class="flow-modal-content sketch-box"><span class="flow-modal-close">&times;</span><div class="flow-modal-num" id="flowModalNum"></div><div class="flow-modal-title" id="flowModalTitle"></div><div class="flow-modal-gap" id="flowModalGap"></div></div></div><p>
-在这条链条中，消费者最脆弱的不是钱包，而是情绪。宠物离世往往发生在深夜或凌晨，主人需要在短时间内做决定。许多机构正是利用这种"情绪窗口期"，进行高价推销或模糊报价。
+在这条链条中，消费者最容易失守的关口往往是情绪。宠物离世常发生在深夜或凌晨，主人需要在短时间内做决定。许多机构正是利用这种"情绪窗口期"，进行高价推销或模糊报价。
 </p><h3>医疗、保险与善终：被忽略的经济链条</h3><p>
 宠物殡葬的高需求，往往与宠物医疗的高成本、低保障形成镜像。中国宠物医疗市场近年来快速扩张，但宠物保险渗透率仍处于极低水平——据行业估算，中国宠物保险覆盖率不足 <span class="highlight">1%</span>，而英国、瑞典等成熟市场可达 <span class="highlight">25%～40%</span>。这意味着，大多数宠物主人在宠物生病或临终阶段，需要自付全部医疗费用。
 </p><p>
-高昂的临终医疗支出与情感投入叠加，使许多主人在宠物离世后产生强烈的"补偿心理"：既然无法在医疗上留住它，就希望在善终环节不留遗憾。一项针对宠物殡葬消费者的调研显示，不少受访者选择高价套餐的原因之一，正是"前面已经花了那么多钱，最后这一程不想委屈它"。这种心理并非不理性，而是情感账户与现实支出共同作用的结果。
+高昂的临终医疗支出与情感投入叠加，使许多主人在宠物离世后产生强烈的"补偿心理"：既然无法在医疗上留住它，就希望在善终环节不留遗憾。一项针对宠物殡葬消费者的调研显示，不少受访者选择高价套餐的原因之一，正是"前面已经花了那么多钱，最后这一程不想委屈它"。这背后，是情感账户与现实支出共同作用的结果——它不"非理性"，它只是人性。
 </p><p>
-与此同时，宠物保险的缺位也限制了善终服务的规范化。在保险成熟的市场，部分宠物寿险或综合险会覆盖火化、骨灰处理等善终费用，这为消费者提供了明确的价格锚点和服务入口。而在中国，善终服务仍主要依赖消费者自费，价格弹性大、信息不对称严重。因此，推动宠物保险发展，不仅是降低医疗负担的手段，也是规范善终市场、减少消费者焦虑的重要路径。
+与此同时，宠物保险的缺位也让善终服务难以规范化。在保险成熟的市场，部分宠物寿险或综合险会覆盖火化、骨灰处理等善终费用，为消费者提供了明确的价格锚点和服务入口。而在中国，善终服务仍主要依赖消费者自费，价格弹性大、信息不对称严重。推动宠物保险发展，既能降低医疗负担，也将为善终市场的规范化提供一个基础性通道。
 </p><div class="quote">
 "宠物保险和医疗体系的完善，能从根本上改变主人的决策环境。当主人不必在'治病'和'告别'之间做极端选择时，宠物善终才更容易回归尊重本身。"
 <div class="quote-author">—— 宠物经济研究者 李敏（据《中国宠物保险行业发展报告》）</div></div>
@@ -3432,7 +3582,7 @@ nav{padding:0.6rem 1rem;}
 </p><div class="trap-maze"><img loading="lazy" class="trap-maze-bg" src="images/img_7a0b346c8dcd7a80.webp" alt="消费者困境迷宫" style="position: relative; width: 100%; height: auto; display: block;"><div class="trap-nodes"><div class="trap-node pulse" data-trap="price" data-title="价格不透明" data-detail="网上标 800 元，到店常因体重、消毒、告别厅超时等加至 1400-2000 元。低价引流、层层加价是常见套路。" style="left: 19.7%; top: 26.4%;"></div><div class="trap-node pulse" data-trap="fake" data-title="真假单独火化" data-detail="部分机构将多只宠物集体火化却按单独火化收费，甚至用草木灰冒充骨灰，消费者难以进入车间全程监督。" style="left: 18.1%; top: 50.5%;"></div><div class="trap-node pulse" data-trap="qualification" data-title="资质难辨" data-detail="动物防疫条件合格证、营业执照、环保审批是合规门槛，但消费者很少主动查验，机构也常刻意模糊。" style="left: 55.9%; top: 28.8%;"></div><div class="trap-node pulse" data-trap="emotion" data-title="情感诱导消费" data-detail="“它陪了你这么多年，值得最好的”——悲伤场景中的话术极易诱导消费超出预算，事后又难以启齿后悔。" style="left: 52.6%; top: 74.5%;"></div><div class="trap-node pulse" data-trap="region" data-title="区域服务空白" data-detail="三四线城市及县城缺乏专业机构，主人常需跨城奔波，增加交通、时间和情绪成本，也让黑作坊有机可乘。" style="left: 74.0%; top: 26.4%;"></div><div class="trap-node pulse" data-trap="rights" data-title="维权无门" data-detail="涉及农业农村、市场监管、环保、民政等多部门，职责边界不清，投诉成本高、周期长，消费者维权无门。" style="left: 70.7%; top: 57.7%;"></div></div></div><p>
 这些问题的根源，在于行业尚未形成统一的服务标准和价格体系。对从业者而言，竞争主要发生在营销端而不是服务端；对消费者而言，每一次选择都像一次赌博——赌的是商家的良心，而不是制度的约束。
 </p><h3>套餐价格：从"体面处理"到"情感溢价"</h3><p>
-宠物殡葬的费用，本质上是"服务复杂度"的定价。2025年行业里最常见的三类套餐，对应着主人不同的需求层次。价格标签越长，意味着服务越复杂、情感溢价越高——但陷阱也可能越多。
+宠物殡葬的费用，说到底是在为"服务的复杂度"定价。2025年行业里最常见的三类套餐，对应着主人不同的需求层次。价格标签拉得越长，服务越复杂、情感溢价越高——陷阱也可能越深。
 </p><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 向右侧拉动标签，查看套餐详情</span><div class="price-tags-rack" id="priceTagsRack"><div class="price-tag-line"></div><div class="price-tag-wrap" data-price="basic" style="--tag-width: 34%;"><div class="price-tag-string"></div><div class="price-tag sketch-box"><div class="price-tag-hole"></div><div class="price-tag-body"><div class="price-tag-name">基础刚需</div><div class="price-tag-price">800-1500元</div><div class="price-tag-desc">运输 + 个体火化 + 基础骨灰盒</div></div><div class="price-tag-notch"></div></div></div><div class="price-tag-wrap" data-price="ritual" style="--tag-width: 56%;"><div class="price-tag-string"></div><div class="price-tag sketch-box"><div class="price-tag-hole"></div><div class="price-tag-body"><div class="price-tag-name">仪式告别</div><div class="price-tag-price">1500-3000元</div><div class="price-tag-desc">独立告别厅 + 专属引导 + 实木骨灰盒</div></div><div class="price-tag-notch"></div></div></div><div class="price-tag-wrap" data-price="custom" style="--tag-width: 78%;"><div class="price-tag-string"></div><div class="price-tag sketch-box"><div class="price-tag-hole"></div><div class="price-tag-body"><div class="price-tag-name">定制纪念</div><div class="price-tag-price">3000元以上</div><div class="price-tag-desc">树葬 / 骨灰钻石 / DNA保存</div></div><div class="price-tag-notch"></div></div></div></div><div class="detail-panel" id="priceDetailPanel"><strong>定制纪念套餐（3000元以上）</strong><br>
 成本构成：情感溢价高，如骨灰钻石成本约1000元但售价4000-8000元。<br>
 适合人群：希望"永远带着它"的主人。<br>
@@ -3446,9 +3596,9 @@ nav{padding:0.6rem 1rem;}
 </p><p style="text-align: justify; line-height: 1.9; margin-bottom: 1.5rem;">
 对于三四线城市或县城的宠物主人而言，这种"上门取宠 + 集中无害化处理"的模式，意味着即使本地没有专业殡葬机构，也能让宠物得到相对体面的善终。它并非完美，却在客观上填补了许多空白地带，也让"最后一面"不再只是大城市的特权。
 </p><p>
-乱象与进步并存，构成了这个行业最真实的两面。它既需要更严格的监管与标准，也需要更多像上门接宠这样贴近用户痛点的服务创新。
+乱象与进步并存，构成了这个行业最真实的两面。产业在狂奔，但消费者的真实体验却是冰火两重天——城市与乡村、合规机构与黑作坊之间，隔着一道看不见的鸿沟；而最终为这道鸿沟买单的，是每一个在深夜里抱着宠物遗体手足无措的普通人。
 </p>
-</div></section><section id="chapter4" style="background: var(--paper-dark);"><div class="chapter-cover" style="background-image: url('images/img_bea2293987cc30e9.webp');"><span class="chapter-number">04</span><div class="chapter-cover-content"><h2 style="text-align: center;">最后一面</h2><p class="chapter-subtitle" style="text-align: center;">一个仪式，也是一次情感的出口</p></div></div><div class="chapter-content"><p class="lead">
+</div></section><section id="chapter4" style="background: var(--paper-dark);"><div class="chapter-cover" style="background-image: url('images/img_bea2293987cc30e9.webp');"><span class="chapter-number">04</span><div class="chapter-cover-content"><h2 style="text-align: center;">最后一面</h2><p class="chapter-subtitle" style="text-align: center;">当告别成为民生刚需——城乡不均下的两种"最后一面"</p></div></div><div class="chapter-content"><p class="lead">
 最终，小林选择了一个2000多元的套餐。工作人员凌晨来接豆豆，用恒温箱装着，带它去市区的纪念馆。
 </p><div class="story-card sketch-box story-with-illustration" ><div class="story-card-content"><h3>最后的二十四小时</h3><p>
 豆豆走的前一天晚上，小林没有睡。她把它平时最爱躺的垫子搬到床边，每隔一会儿就伸手摸摸它的头。豆豆已经站不起来了，但尾巴还会轻轻摇一下，像在安慰她。<br><br>
@@ -3502,17 +3652,17 @@ nav{padding:0.6rem 1rem;}
 </p><p>
 在宠物殡葬相关平台的话题下，写满了类似的故事。这些留言展现了一个被长期忽视的情感缺口：宠物不仅仅是动物，它们是许多人生活中不可替代的家人。
 </p><p class="caption" style="text-align: center; margin-bottom: 1rem;">以下留言整理自大众点评、小红书、微博等平台宠物殡葬话题下的真实网友分享，网名已做匿名化处理。点击图片可查看对应宠物转绘为手绘的最后一面。</p><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 点击留言卡片，查看手绘风格的最后一面</span><div class="message-wall"><div class="message-card sketch-box" data-photo="images/img_2dcb9ce66c839952.webp" data-name="点点"><div class="msg-text">"骨灰我就放在家里了。摆上它生前用的、爱吃的、爱玩的，感觉它还在身边，只是换了一种方式陪我。"</div><div class="msg-author">—— 北京，@点点麻麻</div><span class="msg-view-photo">查看手绘</span></div><div class="message-card sketch-box" data-photo="images/img_4f9007239efb3615.webp" data-name="橘橘"><div class="msg-text">"我的宝贝陪了我九年多，它就是我的家人。希望它体体面面地离开，把它交给你们，也更安心些。"</div><div class="msg-author">—— 东莞，@橘橘的九年</div><span class="msg-view-photo">查看手绘</span></div><div class="message-card sketch-box" data-photo="images/img_d92601015b51258a.webp" data-name="咪咪"><div class="msg-text">"感谢能有这么一个地方，让我最后还能和宝宝好好告个别。洗了香香的澡，安静地睡在那里，体面地离开。"</div><div class="msg-author">—— 上海，@咪咪的最后港湾</div><span class="msg-view-photo">查看手绘</span></div><div class="message-card sketch-box" data-photo="images/img_dd360415f2388b4c.webp" data-name="宝贝"><div class="msg-text">"我们家宝贝陪了我们11年多，那天心都是碎的。但强撑着想给它一个干净体面的最后旅程，工作人员的温柔让我感动。"</div><div class="msg-author">—— 杭州，@十一年的陪伴</div><span class="msg-view-photo">查看手绘</span></div><div class="message-card sketch-box" data-photo="images/img_061c5841f04f08b0.webp" data-name="蛋蛋"><div class="msg-text">"初次见到你时，以为你会很凶，谁知道是暖暖温柔的黏人精。愿你往生极乐，在幸福的世界里追逐嬉戏。"</div><div class="msg-author">—— 深圳，@蛋蛋的铲屎官</div><span class="msg-view-photo">查看手绘</span></div><div class="message-card sketch-box" data-photo="images/img_9e870ccfa1d619ca.webp" data-name="小白"><div class="msg-text">"九年多的朝夕相伴，它来家里的第一天仿佛就在昨天。分离太痛苦了，我想我以后都不敢再养狗了。"</div><div class="msg-author">—— 福州，@小白的九年</div><span class="msg-view-photo">查看手绘</span></div></div><div class="message-photo-modal" id="messagePhotoModal"><div class="message-photo-backdrop"></div><div class="message-photo-content sketch-box"><span class="message-photo-close">&times;</span><img loading="lazy" src="" alt="宠物最后一面" id="messagePhotoImg"><div class="message-photo-caption"><strong id="messagePhotoName"></strong><p id="messagePhotoText"></p></div></div></div><div class="story-card sketch-box story-with-illustration" style="margin-top: 2.5rem;"><div class="story-card-content"><h3>悲伤之后，生活继续</h3><p>
-告别仪式结束后的很长一段时间，小林都保留着豆豆的食盆和水碗。她说，不是忘了收，而是每次想收的时候，都觉得那像是在擦掉它存在过的证据。<br><br>
+告别仪式结束后的很长一段时间，小林都保留着豆豆的食盆和水碗。她说，不是忘了收——是每次想收的时候，都觉得那像在擦掉它存在过的证据。<br><br>
 后来，她把豆豆的骨灰放在了书架上，旁边是它一岁时的照片。她还是会每天跟它说"我出门了"、"我回来了"，只是声音变轻了，像是在说给一个睡着的孩子听。<br><br>
 "有人说这是走不出来。"小林说，"但我觉得，不是走不出来，而是我不想走出来。它陪了我六年，难道不值得我难过久一点吗？"
 </p></div><div class="story-illustration" aria-label="小林在书架旁怀念豆豆"><img loading="lazy" src="images/img_01e5f8a883da5cda.webp" alt="小林在书架旁怀念豆豆" style="width:100%; height:auto; display:block; border-radius:4px; filter: contrast(0.95) saturate(0.95);"></div></div><p>
-这些留言和故事背后，是一种正在觉醒的消费意识，更是一种被重新理解的情感伦理：宠物的善终服务，不再是奢侈，而是许多人情感需求的刚需表达。当一座城市愿意为宠物的最后一程提供体面与尊重，它也在学习如何温柔地接住那些深夜里无声的崩溃。
+这些留言和故事背后，是一种正在觉醒的消费意识，更是一种被重新理解的情感伦理：宠物的善终服务已不再是可有可无的奢侈消费，而是1.24亿只宠物背后的情感刚需。但情感需求的满足，不能只靠市场自发调节。当产业的狂奔快于规则的建立，当城乡之间的服务鸿沟让"体面告别"成为少数人的特权，这些私人化的悲伤就悄然升级为一个<span class="highlight">公共治理命题</span>：无害化处理如何守住环保底线？消费维权该找哪个部门？谁来为那些驱车80公里送别宠物的主人，建立一个清晰、透明、可及的规则体系？
 </p>
-</div></section><section id="chapter5"><div class="chapter-cover" style="background-image: url('images/img_0564cbaa1afd7d9c.webp');"><span class="chapter-number">05</span><div class="chapter-cover-content"><h2 style="text-align: center;">告别的规则</h2><p class="chapter-subtitle" style="text-align: center;">从私人悲伤到公共治理</p></div></div><div class="chapter-content"><p class="lead">
+</div></section><section id="chapter5"><div class="chapter-cover" style="background-image: url('images/img_0564cbaa1afd7d9c.webp');"><span class="chapter-number">05</span><div class="chapter-cover-content"><h2 style="text-align: center;">告别的规则</h2><p class="chapter-subtitle" style="text-align: center;">无害化、环保、维权——从产业狂奔到制度补课的治理必答题</p></div></div><div class="chapter-content"><p class="lead">
 宠物殡葬不只是商业服务，更涉及公共卫生、环境保护和动物福利。在理解中国现状之前，先看看其他国家如何安放这份告别。
 </p><h3>世界经验：他国如何安放这份告别</h3><p>
 宠物殡葬并非中国独有。在养宠文化更成熟的国家，宠物的善终早已纳入社会公共服务与动物福利体系。不同国家的做法，折射出不同的文化观念与治理路径。
-</p><div class="chart-wrapper"><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 悬停或点击蜡烛节点查看各国做法</span><div class="chart-container sketch-box" ><canvas id="globalCompareChart"></canvas></div><p class="caption">数据来源：日本宠物食品协会、美国宠物产品协会（APPA）、欧洲宠物食品工业联合会（FEDIAF）、中国畜牧业协会宠物产业分会公开资料（数值为示意性统计）</p><div class="chart-detail" id="globalCompareDetail"><strong>日本</strong>：宠物火化率高达约90%，寺庙、宠物陵园体系成熟，形成了"宠物供养"文化。
+</p><div class="chart-wrapper"><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 悬停或点击蜡烛节点查看各国做法</span><div class="chart-container sketch-box" ><canvas id="globalCompareChart"></canvas></div><p class="caption">数据来源：日本宠物食品协会、美国宠物产品协会（APPA）、欧洲宠物食品工业联合会（FEDIAF）、中国畜牧业协会宠物产业分会公开资料（数值为示意性统计） | 单位：% | 数据时间：2024</p><div class="chart-detail" id="globalCompareDetail"><strong>日本</strong>：宠物火化率高达约90%，寺庙、宠物陵园体系成熟，形成了"宠物供养"文化。
 </div><div class="country-book" id="countryBook"><div class="book-pages"><div class="book-page active" data-page="0"><div class="book-page-header"><span class="book-country">日本</span><span class="book-rate">火化率约 90%</span></div><h4>宠物供养文化</h4><p>日本是全球宠物殡葬最成熟的国家之一。寺庙提供"宠物供养"服务，<span class="highlight">宠物陵园、纳骨堂遍布全国</span>，主人可以定期祭拜。这种文化将宠物视为家庭成员，善终服务已成为社会共识。</p></div><div class="book-page" data-page="1"><div class="book-page-header"><span class="book-country">英国</span><span class="book-rate">火化率约 80%</span></div><h4>受法律保护的宠物墓地</h4><p>英国拥有世界上最早的宠物墓地之一，部分历史可追溯至19世纪。<span class="highlight">宠物墓地受法律保护</span>，火化服务规范，宠物殡葬师需接受专业培训，行业准入门槛较高。</p></div><div class="book-page" data-page="2"><div class="book-page-header"><span class="book-country">美国</span><span class="book-rate">火化率约 65%</span></div><h4>市场化与多元服务</h4><p>美国宠物殡葬市场化程度高，有宠物殡仪馆、宠物公墓、骨灰艺术等多种服务。但各州法规差异较大，<span class="highlight">行业主要由市场驱动</span>，消费者选择丰富但价格不透明问题也存在。</p></div><div class="book-page" data-page="3"><div class="book-page-header"><span class="book-country">德国</span><span class="book-rate">火化率约 55%</span></div><h4>动物福利与环保并重</h4><p>德国动物福利法规严格，宠物尸体处理须符合环保标准。<span class="highlight">单独火化与集体火化分类明确</span>，宠物主人可选择是否取回骨灰，整个过程强调对动物尊严与环境保护的双重尊重。</p></div><div class="book-page" data-page="4"><div class="book-page-header"><span class="book-country">中国</span><span class="book-rate">火化率约 18%</span></div><h4>快速扩张中的规范之路</h4><p>中国宠物殡葬行业用十年时间走完了其他国家数十年的市场化进程。需求激增的同时，监管与情感共识的构建正在努力追赶。<span class="highlight">区域发展不均衡、行业标准缺失</span>仍是主要挑战。</p></div></div><div class="book-controls"><button class="book-btn book-prev" disabled>上一页</button><div class="book-dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><button class="book-btn book-next">下一页</button></div></div><p>
 横向比较可以发现，宠物殡葬的成熟度与一个国家的<span class="highlight">城镇化水平</span>、<span class="highlight">动物福利观念</span>和<span class="highlight">公共服务精细度</span>密切相关。中国的特殊之处在于：用极短的时间走完了市场化进程，监管与情感共识的构建，正在努力追赶需求扩张的速度。
 </p><h3>本国的实践与法律法规</h3><p>
@@ -3520,16 +3670,16 @@ nav{padding:0.6rem 1rem;}
 </p><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 点击左右箭头翻阅法律试卷</span><div class="law-book" id="lawBook"><div class="exam-paper"><div class="exam-binding-holes"><span></span><span></span><span></span><span></span><span></span></div><div class="exam-header"><div><div class="exam-title-main">宠物殡葬法规与实践综合卷</div><div class="exam-info-row"><span>班级：____</span><span>姓名：____</span><span>考号：____</span></div></div><div class="exam-meta"><div class="exam-score-box">得分：____</div><div style="margin-top: 0.3rem;">满分 100 分</div></div></div><div class="exam-pages"><div class="exam-page active" data-exam-page="0"><div class="exam-question-num">一、（1）</div><div class="exam-title-circle"><span class="exam-title-text">《动物防疫法》（2021年修订）</span><svg viewBox="0 0 200 60" preserveAspectRatio="none"><path d="M22,18 C55,6 140,4 178,20 C190,30 188,45 170,50 C130,58 50,56 24,44 C12,36 10,26 22,18 Z"/></svg></div><div class="exam-content"><p>病死或死因不明的动物尸体，必须进行<span class="marker-highlight">无害化处理</span>，不得随意弃置。私自丢弃、随意掩埋、违规焚烧或交由无资质机构处理，均属违法行为。</p></div></div><div class="exam-page" data-exam-page="1"><div class="exam-question-num">一、（2）</div><div class="exam-title-circle"><span class="exam-title-text">双资质要求</span><svg viewBox="0 0 200 60" preserveAspectRatio="none"><path d="M28,20 C65,8 145,8 175,22 C185,32 182,46 165,50 C125,56 55,54 30,42 C18,34 18,26 28,20 Z"/></svg></div><div class="exam-content"><p>合规宠物殡葬机构需同时具备：市场监管部门核发的营业执照（经营范围含<span class="marker-highlight">宠物无害化处理、宠物殡葬服务</span>），以及农业农村部门核发的<span class="marker-highlight">动物防疫条件合格证</span>。</p></div></div><div class="exam-page" data-exam-page="2"><div class="exam-question-num">一、（3）</div><div class="exam-title-circle"><span class="exam-title-text">环保与火化标准</span><svg viewBox="0 0 200 60" preserveAspectRatio="none"><path d="M25,18 C60,6 142,6 176,20 C188,30 186,44 168,50 C128,56 52,54 28,42 C16,34 16,26 25,18 Z"/></svg></div><div class="exam-content"><p>火化设备需符合国家环保标准。依据《病死动物无害化处理技术规范》，直接焚烧法的燃烧室温度不得低于<span class="marker-highlight">850℃</span>，二燃室烟气停留时间需 ≥ <span class="marker-highlight">2秒</span>，确保处理过程安全、环保。</p></div></div><div class="exam-page" data-exam-page="3"><div class="exam-question-num">一、（4）</div><div class="exam-title-circle"><span class="exam-title-text">深埋处理要求</span><svg viewBox="0 0 200 60" preserveAspectRatio="none"><path d="M28,20 C62,8 140,8 174,22 C184,32 182,46 166,50 C126,56 54,54 30,42 C18,34 18,26 28,20 Z"/></svg></div><div class="exam-content"><p>偏远郊区确需深埋的，应选择远离<span class="marker-highlight">水源地、居民区、农田</span>的区域，深埋深度不低于 <span class="marker-highlight">1.5米</span>，深埋前需对尸体进行消毒处理。</p></div></div><div class="exam-page" data-exam-page="4"><div class="exam-question-num">一、（5）</div><div class="exam-title-circle"><span class="exam-title-text">地方实践</span><svg viewBox="0 0 200 60" preserveAspectRatio="none"><path d="M38,20 C72,8 132,8 164,22 C174,32 172,46 156,50 C116,56 64,54 40,42 C28,34 28,26 38,20 Z"/></svg></div><div class="exam-content"><p>《北京市动物防疫条例》《上海市养犬管理条例》等地方法规对宠物尸体处理作出更具体规定。2025年，广东省首家获批动物防疫条件合格证、面向家养宠物的动物无害化处理中心在<span class="marker-highlight">深圳</span>投入运营。</p></div></div><div class="exam-page" data-exam-page="5"><div class="exam-question-num">二、（1）</div><div class="exam-title-circle"><span class="exam-title-text">标准体系逐步建立</span><svg viewBox="0 0 200 60" preserveAspectRatio="none"><path d="M18,20 C55,8 148,8 180,22 C190,32 188,46 170,50 C130,56 48,54 22,42 C10,34 10,26 18,20 Z"/></svg></div><div class="exam-content"><p>中国畜牧业协会宠物产业分会、全国伴侣动物（宠物）标准化技术委员会等机构，正推动宠物殡葬服务团体标准制定，涉及<span class="marker-highlight">服务流程、消毒防疫、骨灰处理、信息公示</span>等多个环节，为行业提供可参照的操作规范。</p></div></div><div class="exam-page" data-exam-page="6"><div class="exam-question-num">二、（2）</div><div class="exam-title-circle"><span class="exam-title-text">地方监管先行先试</span><svg viewBox="0 0 200 60" preserveAspectRatio="none"><path d="M18,20 C55,8 148,8 180,22 C190,32 188,46 170,50 C130,56 48,54 22,42 C10,34 10,26 18,20 Z"/></svg></div><div class="exam-content"><p>北京、上海、深圳、成都等地已出现面向家养宠物的无害化处理中心，部分城市将宠物尸体处理纳入动物防疫与公共卫生管理体系。深圳于2025年投入运营广东省首家获批动物防疫条件合格证的家养宠物无害化处理中心。</p></div></div><div class="exam-page" data-exam-page="7"><div class="exam-question-num">二、（3）</div><div class="exam-title-circle"><span class="exam-title-text">产业端自我进化</span><svg viewBox="0 0 200 60" preserveAspectRatio="none"><path d="M28,20 C65,8 138,8 170,22 C180,32 178,46 162,50 C122,56 54,54 30,42 C18,34 18,26 28,20 Z"/></svg></div><div class="exam-content"><p>连锁品牌、小程序预约、电子档案、服务可追溯等数字化手段开始应用；部分机构引入环保火化设备、透明化告别流程和哀伤辅导服务。行业正从<span class="marker-highlight">"野蛮生长"</span>逐步走向<span class="marker-highlight">"规范竞争"</span>。</p></div></div></div><div class="exam-page-number" id="lawPageNumber">第 1 页 / 共 8 页</div></div><div class="exam-controls"><button class="exam-btn exam-prev" disabled>← 上一题</button><button class="exam-btn exam-next">下一题 →</button></div></div><p>
 然而，行业仍面临标准缺失、监管分散、区域发展不均等挑战。宠物殡葬服务涉及民政、农林、畜牧、环保、市场监管等多个部门，需要建立协同监管机制。
 </p><p>
-值得看到的是，近年来从中央到地方，对宠物殡葬的关注正在从"事后管理"转向"事前规范"。相关部门开始推动行业标准制定、无害化处理设施建设，以及跨部门协同监管试点。它需要的不是被忽视，也不是被过度浪漫化，而是被纳入一个更清晰、更有人情味的治理框架中。
+值得看到的是，近年来从中央到地方，对宠物殡葬的关注正在从"事后管理"转向"事前规范"。相关部门开始推动行业标准制定、无害化处理设施建设，以及跨部门协同监管试点。它既不必被刻意回避，也无需被过度浪漫化——需要的是纳入一个更清晰、更有人情味的治理框架。
 </p><p>
 未来，当宠物殡葬从小众服务走向公共基础设施，当每一个生命都能被体面地送别，"最后一面"才会真正成为一个社会文明的刻度。
 </p><div class="quote" >
 "宠物尸体无害化处理对保障城市公共卫生安全有重要意义，也体现了人类对动物的'尊重'，应积极推动宠物殡葬行业规范发展。"
 <div class="quote-author">—— 中国畜牧业协会宠物产业分会秘书长 刘晓霞</div></div>
 </div></section><section id="call-to-action" style="background: var(--paper-dark); padding: 1.5rem 0 0.5rem;"><div class="chapter-content"><h2 style="text-align: center; margin-bottom: 2rem;">不止于告别：我们还可以做什么</h2><p style="text-align:justify;max-width:760px;margin:0 auto 2rem;line-height:2;font-size:1.15rem;color:var(--ink);">
-宠物殡葬从来不只是消费者和商家之间的一笔交易。它是城市治理的盲区，是动物福利的试金石，是公共卫生的底线，也是无数人在深夜独自咽下的眼泪。要让"最后一面"从一种冒险变成一种体面，制度建设、行业自律与公众参与，缺了哪一环都不行。
+宠物殡葬从来不只是消费者和商家之间的一笔交易。它是城市治理的盲区，是动物福利的试金石，是公共卫生的底线，也是无数人在深夜独自咽下的眼泪。从情感需求出发，穿过公共服务的缺口，望向国家治理的回应——"高质量发展"在民生领域最真实的实践场景，就藏在这些缝隙里：让"最后一面"从一种冒险变成一种体面，制度建设、行业自律与公众参与，缺了哪一环都不行。
 </p><div class="notice-board-grid"><div class="notice-board"><div class="notice-title">把善终纳入城市公共服务</div><p class="notice-text">宠物的最后一程，不应由市场完全决定谁能“被体面送别”。参考日本、英国将动物尸体无害化处理纳入市政管理的经验，三四线城市可建设区域性宠物善终处理中心，让火化、骨灰安放与悼念空间成为城市公共服务的一部分，而不是大城市的特权。</p></div><div class="notice-board"><div class="notice-title">建立透明定价与服务标准</div><p class="notice-text">当主人在深夜情绪崩溃时接到一张模糊报价单，任何“自愿消费”都可能是信息不对等的产物。应明确单独火化、集体火化、告别仪式、骨灰寄存等核心流程的定义，制定参考价格区间与服务清单，让消费者在脆弱时也能有据可依。</p></div><div class="notice-board"><div class="notice-title">明确监管主体与协同机制</div><p class="notice-text">宠物殡葬横跨农业农村、市场监管、环保、民政、城管等多个部门，但“都在管”往往意味着“都不管”。需要由一个部门牵头，建立资质审批、日常检查、投诉处理到环保评估的闭环，让黑作坊和无证经营没有生存空间。</p></div><div class="notice-board"><div class="notice-title">推动保险、医疗与哀伤支持衔接</div><p class="notice-text">宠物善终的高价，很多时候是临终医疗支出的“延迟爆发”。扩大宠物医疗保险覆盖、将善终服务纳入保险或服务包，能为主人提供价格锚点；同时，在社区、宠物医院和学校引入生命教育与哀伤辅导，让失去宠物的悲伤不再被当作“小题大做”。</p></div></div><p style="text-align:justify;max-width:760px;margin:2.5rem auto 0;line-height:2;font-size:1.15rem;color:var(--ink);">
-当一座城市能为宠物的最后一程提供清晰、透明、可及的服务，它不仅在善待动物，也在善待那些深夜里独自流泪的人。这不是一句漂亮话。小林所在的三线城市需要80公里外的一条火化炉，豆豆终其一生只陪伴了一个人，却教会那个人关于告别的一切。它们给我们的，不该用一场仓促的"处理"来还。
+当一座城市能为宠物的最后一程提供清晰、透明、可及的服务，它在善待动物的同时，也在善待那些深夜里独自流泪的人。这不是一句漂亮话。小林所在的三线城市需要80公里外的一条火化炉，豆豆终其一生只陪伴了一个人，却教会那个人关于告别的一切。它们给我们的，不该用一场仓促的"处理"来还。
 </p></div></section>
 <section id="epilogue" style="background: var(--paper-dark); min-height: auto; padding: 1rem 0 1.5rem; margin-top: -3rem;"><div class="chapter-content" style="text-align: center;"><h2>尾声</h2><p class="lead" style="text-align: center; max-width: 760px; margin-left: auto; margin-right: auto; line-height: 2.4; margin-bottom: 3.5rem;">
 1.24 亿只宠物，300 万次告别。<br>
@@ -3537,9 +3687,10 @@ nav{padding:0.6rem 1rem;}
 当一个独居女孩在留言墙上写下"谢谢你陪我度过最难的那几年"，<br>
 这些私人化的悲伤，其实正在叩问一个公共命题：<br><span style="color: #c53d43;">一个社会如何对待生命的最后一程，往往映照着它如何理解陪伴、尊严与爱。</span></p><p class="lead" style="text-align: center; max-width: 720px; margin-left: auto; margin-right: auto; line-height: 2.4; margin-bottom: 4rem;">
 宠物殡葬不是奢侈消费的注脚，<br>
-而是城市独居时代情感基础设施的一次补课。<br>
+而是城市独居时代情感基础设施的一次补课，<br>
+更是"高质量发展"在民生治理领域的一面镜子。<br>
 它需要的不仅是市场的扩张，<br>
-更是规则的清晰、服务的透明，以及一种共识——<br>
+更是规则的清晰、服务的公平可及，以及一种全民共识——<br>
 那些曾用一生陪伴我们的小生命，值得拥有体面的告别；<br>
 而送别它们的人，也值得被温柔接住。
 </p><div class="candle-game" style="margin-top: 4rem; display: flex; flex-direction: column; align-items: center;"><p style="font-size: 1.05rem; color: #555; margin-bottom: 1.5rem; text-align: center; width: 100%; max-width: 400px;">
@@ -3568,19 +3719,46 @@ message.style.color = '#777';
 }
 });
 })();
-</script></div></section><footer><div class="sources"><h4>数据来源与参考资料</h4><ul><li>中国畜牧业协会宠物产业分会《2025年中国宠物行业白皮书》</li><li>新华网《新华视点·关注宠物经济｜每年数百万只宠物死亡，"身后事"怎么办？》（2025年6月）</li><li>新华每日电讯《每年数百万宠物死亡，"身后事"也是个事》（2025年6月）</li><li>中研普华研究院《2025-2030年中国宠物殡葬与纪念服务行业市场预测》</li><li>企查查数据：截至2025年6月19日，宠物殡葬现存企业8373家</li><li>天眼查数据：截至2025年9月，我国现存宠物殡葬相关企业突破4.3万家</li><li>东方财富网《71.61%的宠物殡葬企业成立时间不足3年》（2025年7月）</li><li>《中华人民共和国动物防疫法》（2021年修订）</li><li>《病死动物无害化处理技术规范》（农医发〔2013〕34号）</li><li>《病死畜禽和病害畜禽产品无害化处理管理办法》（农业农村部令2022年第3号）</li><li>《北京市动物防疫条例》《上海市养犬管理条例》</li><li>行业公开资料与研究报告</li></ul><h4 style="margin-top:1rem;margin-bottom:0.15rem;">数据时效性说明</h4><p style="font-size:0.95rem;line-height:1.8;color:var(--ink);margin-bottom:0;margin-top:0;">本作品引用的数据均截至2025年底至2026年初。中国畜牧业协会宠物产业分会《中国宠物行业白皮书》为年度发布（最新为2025年版）；企查查/天眼查企业数据为对应查询日的快照；行业预测为机构估算。宠物殡葬行业处于快速发展期，后续年份数据可能与本文存在差异，请注意时效性。</p></div><div class="credits" style="margin-top: 2.5rem; text-align: center; font-size: 1rem; line-height: 2;"><div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">主创：袁俊祺 田鎏 张承志 谭钊</div><div>指导老师：王悦</div></div><p style="margin-top: 1.5rem; opacity: 0.6;">数据新闻作品 · 2026</p></footer><script>
+</script></div></section><footer><div class="sources"><h4>数据来源与参考资料</h4><ul><li>中国畜牧业协会宠物产业分会《2025年中国宠物行业白皮书》</li><li>新华网《新华视点·关注宠物经济｜每年数百万只宠物死亡，"身后事"怎么办？》（2025年6月）</li><li>新华每日电讯《每年数百万宠物死亡，"身后事"也是个事》（2025年6月）</li><li>中研普华研究院《2025-2030年中国宠物殡葬与纪念服务行业市场预测》</li><li>企查查数据：截至2025年6月19日，宠物殡葬现存企业8373家</li><li>天眼查数据：截至2025年9月，我国现存宠物殡葬相关企业突破4.3万家</li><li>东方财富网《71.61%的宠物殡葬企业成立时间不足3年》（2025年7月）</li><li>《中华人民共和国动物防疫法》（2021年修订）</li><li>《病死动物无害化处理技术规范》（农医发〔2013〕34号）</li><li>《病死畜禽和病害畜禽产品无害化处理管理办法》（农业农村部令2022年第3号）</li><li>《北京市动物防疫条例》《上海市养犬管理条例》</li><li>行业公开资料与研究报告</li></ul><h4 style="margin-top:1rem;margin-bottom:0.15rem;">数据时效性说明</h4><p style="font-size:0.95rem;line-height:1.8;color:var(--ink);margin-bottom:0;margin-top:0;">本作品引用的数据均截至2025年底至2026年初。中国畜牧业协会宠物产业分会《中国宠物行业白皮书》为年度发布（最新为2025年版）；企查查/天眼查企业数据为对应查询日的快照；行业预测为机构估算。宠物殡葬行业处于快速发展期，后续年份数据可能与本文存在差异，请注意时效性。</p><h4 style="margin-top:1.2rem;margin-bottom:0.5rem;">AI 使用说明</h4><p style="font-size:0.95rem;line-height:1.8;color:var(--ink);margin-bottom:0.35rem;"><strong>是否使用生成式 AI：</strong>是，本作品部分环节使用了生成式人工智能辅助创作。</p><p style="font-size:0.95rem;line-height:1.8;color:var(--ink);margin-bottom:0.35rem;"><strong>AI 使用的具体环节：</strong>（1）数据可视化代码生成（Chart.js / ECharts 图表基础框架）；（2）装饰性手绘插图生成（含 SVG 装饰元素、宠物肖像转绘）；（3）文本初稿的段落衔接与措辞优化；（4）CSS 样式与响应式布局调试辅助。</p><p style="font-size:0.95rem;line-height:1.8;color:var(--ink);margin-bottom:0.35rem;"><strong>人工主导说明：</strong>所有事实性内容、数据分析逻辑、叙事结构与核心论点均由主创团队独立完成。AI 生成的代码、文本与视觉素材均经人工逐项核验、修改与定稿，主创团队对全部内容承担最终责任。</p><p style="font-size:0.95rem;line-height:1.8;color:var(--ink);margin-bottom:0.35rem;"><strong>版权与隐私合规：</strong>作品中引用的网友留言来自大众点评、小红书、微博等平台宠物殡葬话题下的公开讨论，所有用户名均已做匿名化/脱敏处理，不包含任何可识别个人身份的信息（PII），仅保留情感性表达内容用于研究分析目的，符合《个人信息保护法》相关规定。</p><p style="font-size:0.95rem;line-height:1.8;color:var(--ink);margin-bottom:0;"><strong>合规声明：</strong>本作品使用的 AI 工具均符合所在平台的使用条款与内容政策；插图与视觉元素为 AI 生成并经人工修改，未使用受版权保护的第三方素材进行模型训练输入；所有数据来源均已在文中标注。</p></div><div class="credits" style="margin-top: 2.5rem; text-align: center; font-size: 1.35rem; line-height: 2.2; font-weight: 700;"><div style="margin-bottom: 0.3rem;">主创：袁俊祺 田鎏 张承志 谭钊</div><div>指导老师：王悦</div></div><p style="margin-top: 1.5rem; opacity: 0.6;">数据新闻作品 · 2026</p></footer><script>
 // 注册 GSAP ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
-// 导航显隐 - 带淡入效果
+// 导航显隐 + 章节追踪
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-const currentScroll = window.pageYOffset;
-if (currentScroll > 100) {
-navbar.classList.add('visible');
-} else {
-navbar.classList.remove('visible');
+const navLinks = navbar.querySelectorAll('.nav-links a');
+const sections = ['intro','chapter1','chapter2','chapter3','chapter4','chapter5','call-to-action','epilogue'];
+// 计算当前所在章节
+function getCurrentSection() {
+  let current = -1;
+  for (let i = sections.length - 1; i >= 0; i--) {
+    const el = document.getElementById(sections[i]);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= window.innerHeight * 0.4) { current = i; break; }
+    }
+  }
+  return current;
 }
+// 更新 active 链接
+function updateNav() {
+  const idx = getCurrentSection();
+  navLinks.forEach(a => a.classList.remove('active'));
+  if (idx >= 0) {
+    const targetId = sections[idx];
+    const link = navbar.querySelector('.nav-links a[href="#' + targetId + '"]');
+    if (link) link.classList.add('active');
+  }
+}
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  if (currentScroll > 100) {
+    navbar.classList.add('visible');
+  } else {
+    navbar.classList.remove('visible');
+  }
+  updateNav();
 });
+window.addEventListener('resize', updateNav);
+updateNav();
 // 手绘风格图表配置
 Chart.defaults.font.family = "'Noto Serif SC', 'SimSun', serif";
 Chart.defaults.color = '#1a1a1a';
@@ -4708,9 +4886,9 @@ const data = [
 { name: '宁夏', value: 40 },
 { name: '青海', value: 30 },
 { name: '西藏', value: 20 },
-{ name: '台湾', value: 0 },
-{ name: '香港', value: 0 },
-{ name: '澳门', value: 0 }
+{ name: '台湾', value: null },
+{ name: '香港', value: null },
+{ name: '澳门', value: null }
 ];
 const provinceDetails = {
 '北京': '北京是宠物殡葬服务最成熟的城市之一，机构数量多、服务类型全，但价格普遍较高。',
@@ -4722,18 +4900,18 @@ const provinceDetails = {
 '山东': '山东是宠物殡葬相关企业数量最多的省份之一（天眼查口径下与山西、福建同处第一梯队）。一方面，山东是农业与畜禽养殖大省，动物无害化处理产业链基础雄厚，相关设备、服务企业众多；另一方面，天眼查“相关企业”口径较宽，将经营范围含“宠物服务”“动物无害化处理”等的关联主体一并计入，山东庞大的个体户与小微企业基数放大了这一效应。但需注意：企业注册地与实际开展宠物殡葬服务的地点常不一致，“数量领先”不等于本地专业服务密度最高。',
 '福建': '福建宠物殡葬相关企业数量较多，与山东、山西同列第一梯队，但实际专业服务机构密度与一线城市仍有差距，部分企业同样属于“相关口径”下被纳入统计的关联注册主体。',
 '山西': '山西以超 1 万家企业位列全国首位，但这一“领先”主要源于统计口径：天眼查将经营范围含宠物殡葬相关表述的关联企业（含宠物服务、宠物用品销售等）全部纳入，山西大量中小微企业与个体工商户以此类宽泛经营范围注册，被集中计入；部分地区还出现过以“宠物服务”名义注册、实际跨区经营的集群现象。因此山西的高数量更反映注册统计特征，而非本地专业殡葬服务的真实发达程度——这也提示监管需关注企业注册地与实际经营地不一致的问题。',
-'台湾': '台湾地区实行与大陆不同的企业登记与行业统计体系，其宠物殡葬相关企业不纳入大陆天眼查、企查查口径，故图中显示为 0（数据缺失）。需要说明的是：台湾宠物善终服务其实发展较早、市场化程度高，已形成较成熟的宠物善终文化，本地机构数量并不少，只是未被本图统计。',
-'香港': '香港宠物殡葬服务受限于土地与政策空间，以私人机构与渔农自然护理署协作处理为主；其企业同样不纳入大陆统计口径，故图中显示为 0（数据缺失）。',
-'澳门': '澳门宠物殡葬市场规模较小，多数居民选择跨境或合作机构处理宠物身后事；相关企业不纳入大陆统计口径，故图中显示为 0（数据缺失）。'
+'台湾': '数据暂缺 / 未纳入本次统计口径。台湾地区实行与大陆不同的企业登记与行业统计体系，其宠物殡葬相关企业不纳入大陆天眼查、企查查口径。',
+'香港': '数据暂缺 / 未纳入本次统计口径。香港宠物殡葬服务以私人机构与渔农自然护理署协作处理为主，其企业不纳入大陆统计口径。',
+'澳门': '数据暂缺 / 未纳入本次统计口径。澳门宠物殡葬市场规模较小，多数居民选择跨境或合作机构处理宠物身后事，相关企业不纳入大陆统计口径。'
 };
 const option = {
 tooltip: {
 trigger: 'item',
 formatter: function(params) {
-if (params.value !== undefined && params.value !== null) {
-return params.name + '<br/>企业数量指数：' + params.value;
+if (params.value === null || params.value === undefined || params.value === '-') {
+return params.name + '<br/>数据暂缺 / 未纳入本次统计口径';
 }
-return params.name;
+return params.name + '<br/>企业数量指数：' + params.value;
 },
 backgroundColor: 'rgba(248,246,242,0.95)',
 borderColor: '#1a1a1a',
@@ -5352,5 +5530,9 @@ for(var i=0;i<steps.length;i++){(function(s){s.addEventListener('click',function
 })();
 // 城市乡村悬停增强
 (function(){var dcs=document.querySelectorAll('.dim-card[data-detail]');for(var i=0;i<dcs.length;i++){(function(c){c.addEventListener('mouseenter',function(){var t=this.querySelector('.dim-tooltip');if(t){t.style.opacity='1';t.style.visibility='visible';t.style.zIndex='999';}});c.addEventListener('mouseleave',function(){var t=this.querySelector('.dim-tooltip');if(t){t.style.opacity='0';t.style.visibility='hidden';}});})(dcs[i]);}})();
+// 触摸设备 hover fallback：所有仅依赖 CSS :hover 的交互元素，在移动端点击/触摸时激活
+(function(){var hoverSel=['.dim-card[data-detail]','.dim-peer','.pictogram-col','.industry-card','.chain-node','.trap-node','.story-illustration','.flow-step'];var touched=null;document.addEventListener('touchstart',function(e){for(var i=0;i<hoverSel.length;i++){var el=e.target.closest(hoverSel[i]);if(el){if(touched&&touched!==el){touched.classList.remove('touch-hover');}if(el===touched){el.classList.remove('touch-hover');touched=null;}else{el.classList.add('touch-hover');touched=el;}return;}}if(touched){touched.classList.remove('touch-hover');touched=null;}},{passive:true});document.addEventListener('click',function(e){for(var i=0;i<hoverSel.length;i++){if(e.target.closest(hoverSel[i])){if(touched&&touched.classList.contains('touch-hover')){return;}break;}}});})();
+// 性能优化：IntersectionObserver 懒加载图表初始化，图表容器 will-change 提示
+(function(){if('IntersectionObserver' in window){var chartObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var cvs=e.target.querySelectorAll('canvas');for(var i=0;i<cvs.length;i++){cvs[i].style.willChange='transform';}chartObs.unobserve(e.target);}});},{rootMargin:'200px'});document.querySelectorAll('.chart-container').forEach(function(c){chartObs.observe(c);});}})();
 </script>
 </body></html>
