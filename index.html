@@ -685,6 +685,18 @@ height: 360px;
 .chart-container.map {
 height: 520px;
 }
+.chart-container.wordcloud-container {
+  min-height: 240px;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chart-container.wordcloud-container svg {
+  width: 100%;
+  height: 100%;
+  max-height: 380px;
+}
 .data-note {
   margin: 1rem 0 1.5rem;
   padding: 1rem 1.25rem;
@@ -3512,7 +3524,7 @@ h2{font-size:clamp(1.2rem,4.5vw,1.8rem)!important;}
 小林的经历不是孤例。为了理解更多像她一样的消费者在想什么，我们采集了小红书、抖音、B站、微博上与宠物殡葬相关的公开文本，经去重得到<strong><span class="highlight">1,028条有效文本</span></strong>（小红书<span class="highlight">429条</span>、抖音<span class="highlight">284条</span>、B站<span class="highlight">200条</span>、微博<span class="highlight">45条</span>），用情感词典做了倾向分析。
 </p><div class="chart-wrapper"><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 点击图例筛选不同平台的情感倾向</span><div class="chart-container sketch-box" ><canvas id="sentimentChart"></canvas></div><p class="caption">数据来源：基于各平台公开搜索文本的情感词典分析 | 样本量：1,028 条 | 单位：% | 采集时间：2026年7月</p><div class="chart-detail" id="sentimentDetail">
 四个平台的中性文本占<span class="highlight">六到八成</span>——搜索页的内容多为标题和简介，天然偏向信息陈述而非情绪表达。抖音的积极比例相对最高（<span class="highlight">27%</span>），与其内容推荐机制有关；消极比例四个平台接近（约<span class="highlight">4%</span>），说明宠物殡葬尚未形成激烈的网络对抗——它仍是一个<span class="highlight">"被搜索"多于"被争论"</span>的议题。
-</div></div><p>四组数据折射出四套不同的话语体系：小红书的高中性（<span class="highlight">86%</span>）对应其经验分享与科普属性；抖音的积极偏高（<span class="highlight">27%</span>）符合善终类视频"暖心推荐"的标题套路；B站和微博的分布几乎镜像（积极<span class="highlight">24%</span>上下），信息扩散与观点表达并行。换句话说，宠物殡葬在中文互联网上还处在<span class="highlight">"我想搞明白这是个啥"</span>的阶段，远没进入"我支持/我反对"的舆论对峙。这本身就是一个信号——<strong>当一个议题连"被热议"都算不上时，消费者面对的信息困境往往比我们想象的更基础：<span class="highlight">不是不知道怎么选，而是根本不知道有什么可选</span>。</strong></p><div class="chart-wrapper"><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 悬停查看词频指数</span><div class="chart-container sketch-box" ><canvas id="wordFreqChart"></canvas></div><p class="caption">高频词来自1,028条平台搜索文本的词频统计（已排除搜索词"宠物"） | 单位：出现次数 | 采集时间：2026年7月</p></div><p>
+</div></div><p>四组数据折射出四套不同的话语体系：小红书的高中性（<span class="highlight">86%</span>）对应其经验分享与科普属性；抖音的积极偏高（<span class="highlight">27%</span>）符合善终类视频"暖心推荐"的标题套路；B站和微博的分布几乎镜像（积极<span class="highlight">24%</span>上下），信息扩散与观点表达并行。换句话说，宠物殡葬在中文互联网上还处在<span class="highlight">"我想搞明白这是个啥"</span>的阶段，远没进入"我支持/我反对"的舆论对峙。这本身就是一个信号——<strong>当一个议题连"被热议"都算不上时，消费者面对的信息困境往往比我们想象的更基础：<span class="highlight">不是不知道怎么选，而是根本不知道有什么可选</span>。</strong></p><div class="chart-wrapper"><span class="click-guide"><span class="finger"><svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" width="16" height="22" style="vertical-align: middle; margin-right: 0.2rem;"><line x1="12" y1="2" x2="12" y2="22" stroke="#c53d43" stroke-width="3" stroke-linecap="round"/><path d="M6 18 Q4 22 7 27 Q10 30 12 30 Q14 30 17 27 Q20 22 18 18" fill="none" stroke="#c53d43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25 Q12 27 14 25" fill="none" stroke="#c53d43" stroke-width="1.5" stroke-linecap="round"/></svg></span> 词频越大的词字号越大</span><div class="chart-container wordcloud-container sketch-box"><img src="images/img_wordcloud_paw.png" alt="宠物殡葬词云：火化、告别、善终、服务、纪念、仪式、生命、体面、毛孩子、骨灰" style="width:100%;height:auto;display:block;"/></div><p class="caption">高频词来自1,028条平台搜索文本的词频统计（已排除搜索词"宠物"） | 单位：出现次数 | 采集时间：2026年7月</p></div><p>
 值得注意的是，词频排在前列的词汇清晰地分成了两股诉求：<span class="highlight">"火化"（109次）、"善终"（89次）、"服务"（81次）、"骨灰"（27次）</span>指向"怎么处理"的技术需求，<span class="highlight">"告别"（100次）、"纪念"（42次）、"仪式"（32次）</span>指向"怎么告别"的情感需求。其中<span class="highlight">"火化"（109次）与"骨灰"（27次）之间近4倍的频次落差</span>说明了消费者信息搜索的阶段特征：他们大量在搜"怎么烧"，却很少搜到"烧完之后怎么办"——认知还停留在过程的前半段。<span class="highlight">"毛孩子"（31次）</span>以网络亲昵称呼高频出现，折射出宠物从"动物"到"家人"的身份跃迁。<span class="highlight">"仪式"（32次）</span>的进入则说明，随着搜索深入，部分消费者开始意识到"体面告别"是一种可购买的服务。
 </p><p>
 这种"技术需求优先于情感需求、处理结果关注不足"的词汇结构，与新华社2025年《宠物殡葬乱象调查》和法治日报同年《宠物善终服务乱象调查》中所揭露的"隐性收费""假单独火化""草木灰冒充骨灰"等市场乱象形成了对照——媒体高频曝光的乱象关键词在消费者搜索词里几乎为零。这不是消费者不关心，而是<span class="highlight">他们还没走到"如何防骗"那一步</span>。
@@ -5334,52 +5346,77 @@ function initSentimentChart() {
   });
 }
 
-// 微博词频统计图
-function initWordFreqChart() {
-  const ctx = document.getElementById('wordFreqChart');
-  if (!ctx) return;
-  const ink = '#1a1a1a';
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['火化', '告别', '善终', '服务', '纪念', '仪式', '毛孩子', '骨灰'],
-      datasets: [{
-        label: '词频指数',
-        data: [109, 100, 89, 81, 42, 32, 31, 27],
-        backgroundColor: (ctx) => {
-          const v = ctx.raw;
-          const alpha = 0.45 + (v / 100) * 0.45;
-          return `rgba(26,26,26,${alpha})`;
-        },
-        borderColor: ink,
-        borderWidth: 1.8,
-        borderRadius: 4,
-        borderSkipped: false
-      }]
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        title: { display: true, text: '平台搜索文本高频词（排除搜索词"宠物"）', color: ink, font: { family: "'Noto Serif SC', 'Songti SC', serif", size: 15, weight: 'bold' } },
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: '#1a1a1a',
-          bodyColor: '#f8f6f2',
-          borderColor: '#1a1a1a',
-          borderWidth: 1,
-          callbacks: {
-            label: (ctx) => `${ctx.label}：出现 ${ctx.raw} 次`
-          }
-        }
-      },
-      scales: {
-        x: { beginAtZero: true, title: { display: true, text: '出现次数', color: ink, font: { family: "'Noto Serif SC', serif" } }, grid: { color: 'rgba(26,26,26,0.06)', borderDash: [4, 4] }, ticks: { color: ink } },
-        y: { grid: { display: false }, ticks: { color: ink, font: { family: "'Noto Serif SC', serif", size: 13 } } }
-      }
+// 词云图（SVG 方式）
+function initWordCloud() {
+  const container = document.getElementById('wordCloudCanvas');
+  if (!container) return;
+  const W = container.parentElement.clientWidth || 600;
+  const H = Math.min(W * 0.65, 380);
+
+  // 创建 SVG
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', '100%');
+  svg.style.display = 'block';
+  container.parentElement.style.minHeight = H + 'px';
+  container.replaceWith(svg);
+
+  const words = [
+    ['火化', 109], ['告别', 100], ['善终', 89],
+    ['服务', 81], ['纪念', 42], ['仪式', 32],
+    ['毛孩子', 31], ['骨灰', 27]
+  ];
+
+  const maxW = words[0][1];
+  const cx = W / 2, cy = H / 2;
+
+  // 螺旋放置文字
+  const placed = [];
+  function overlaps(x, y, w, h) {
+    for (const p of placed) {
+      if (x < p.x + p.w && x + w > p.x && y < p.y + p.h && y + h > p.y) return true;
     }
-  });
+    return false;
+  }
+
+  for (const [text, weight] of words) {
+    const ratio = weight / maxW;
+    const fs = Math.round(14 + ratio * 36);
+    // 估算文字宽高
+    const tw = text.length * fs * 0.7;
+    const th = fs * 1.3;
+
+    let placedOk = false;
+    for (let r = 8; r < Math.min(W, H) * 0.42; r += 3) {
+      for (let a = 0; a < Math.PI * 2; a += 0.25 + r * 0.006) {
+        const x = cx + Math.cos(a) * r - tw / 2;
+        const y = cy + Math.sin(a) * r - th / 2;
+        // 椭圆边界
+        const dx = (x + tw / 2 - cx) / (W * 0.38);
+        const dy = (y + th / 2 - cy) / (H * 0.42);
+        if (dx * dx + dy * dy > 1) continue;
+        if (!overlaps(x, y, tw, th)) {
+          placed.push({ x, y, w: tw, h: th });
+          const alpha = 0.5 + ratio * 0.45;
+          const el = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          el.setAttribute('x', x + tw / 2);
+          el.setAttribute('y', y + th / 2 + fs * 0.35);
+          el.setAttribute('font-size', fs);
+          el.setAttribute('fill', `rgba(26,26,26,${alpha})`);
+          el.setAttribute('font-family', "'Noto Serif SC', 'Songti SC', serif");
+          el.setAttribute('font-weight', 'bold');
+          el.setAttribute('text-anchor', 'middle');
+          el.setAttribute('dominant-baseline', 'middle');
+          el.textContent = text;
+          svg.appendChild(el);
+          placedOk = true;
+          break;
+        }
+      }
+      if (placedOk) break;
+    }
+  }
 }
 // Collapsible data hint boxes
 (function() {
@@ -5489,7 +5526,7 @@ function initGlobalCompareChart() {
 initPetGrowthChart();
 initCorrelationChart();
 initSentimentChart();
-initWordFreqChart();
+// initWordCloud removed - using image instead
 initDeathCauseChart();
 initAttitudeChart();
 initGlobalCompareChart();
